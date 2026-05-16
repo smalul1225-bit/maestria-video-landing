@@ -334,19 +334,13 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .plans-3 {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  max-width: 480px;
+  max-width: 820px;
   margin: 0 auto;
   align-items: stretch;
 }
-/* MENSUAL hidden until Hotmart approves product 7749622. Re-enable by removing this rule. */
-.plan.secondary, .plan-card.secondary { display: none !important; }
-/* When MENSUAL is hidden, make popular plan even bigger for solo focus */
-.plan.popular, .plan-card.popular {
-  max-width: 480px;
-  margin: 0 auto;
-}
+/* Monthly product 7749622 APPROVED 2026-05-17 — both plans live */
 .plan {
   position: relative;
   background: linear-gradient(180deg, #1c1c1c 0%, #141414 100%);
@@ -673,7 +667,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <nav class="nav">
   <div class="container nav-inner">
     <div class="logo"><span class="logo-mark">M</span>MaestrIA<span>.</span>Video</div>
-    <a href="#pricing" class="nav-cta" onclick="trackClick('nav-scroll')">Empezar — $55/año</a>
+    <a href="#pricing" class="nav-cta" onclick="trackClick('nav-scroll')">Ver planes — Desde $9/mes</a>
   </div>
 </nav>
 
@@ -712,7 +706,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     <div class="quick-info">
       <span>🔒 <strong>Privada</strong></span>
       <span>👥 <strong>+20,000 miembros</strong></span>
-      <span>🏷️ <strong>$55/año</strong></span>
+      <span>🏷️ <strong>Desde $9/mes</strong></span>
       <span>✨ Por Vega Tech Ltd</span>
     </div>
 
@@ -721,8 +715,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       <li>⭐ Comunidad Top 1% en español</li>
       <li>🥇 Curso de Video/Imagen con IA Clasificado #1 en Skool</li>
       <li>🏆 Clasificado #22 a Nivel Global entre 250,000 Comunidades</li>
-      <li>🚨 Solo esta semana: <strong>$55/año precio de lanzamiento</strong></li>
-      <li>‼️ Próxima semana el precio sube a <strong>$99/año</strong></li>
+      <li>🚨 Plan Anual de lanzamiento: <strong>$55/año (ahorra 49%)</strong></li>
+      <li>‼️ Plan Mensual: solo <strong>$9/mes</strong>, cancela cuando quieras</li>
     </ul>
 
     <!-- Country reach strip -->
@@ -774,8 +768,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <!-- ============ PRICING — Funnelish-style 3 buy boxes ============ -->
 <section class="pricing-section" id="pricing">
   <div class="container">
-    <h2>⚡ Precio de lanzamiento — solo esta semana</h2>
-    <p class="sub">Acceso anual completo a MaestrIA Video. Un solo pago, sin renovaciones automáticas.</p>
+    <h2>⚡ Elige tu plan de acceso</h2>
+    <p class="sub">Dos opciones. Mismo bootcamp completo. Cancela cuando quieras.</p>
 
     <!-- Trust ribbon above buy boxes -->
     <div class="trust-ribbon">
@@ -890,8 +884,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
 <!-- ============ STICKY MOBILE CTA ============ -->
 <div class="mobile-cta-bar">
-  <div class="price-mini">$55 USD<span>1 año · pago único · garantía 7 días</span></div>
-  <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-mini" onclick="trackClick('sticky-mobile')">Empezar →</a>
+  <div class="price-mini">Desde $9/mes<span>o $55/año · garantía 7 días</span></div>
+  <a href="#pricing" class="cta-mini" onclick="trackClick('sticky-mobile')">Ver planes →</a>
 </div>
 
 <script>

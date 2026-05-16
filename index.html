@@ -496,15 +496,13 @@ section h2 {
 /* ============ FUNNELISH-STYLE 3 BUY BOXES ============ */
 .plans-3 {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  max-width: 480px;
+  max-width: 820px;
   margin: 0 auto;
   align-items: stretch;
 }
-/* MENSUAL hidden until Hotmart approves product 7749622. Re-enable by removing this rule. */
-.plan-card.secondary { display: none !important; }
-.plan-card.popular { max-width: 480px; margin: 0 auto; }
+/* Monthly product 7749622 APPROVED 2026-05-17 — both plans live */
 .plan-card {
   position: relative;
   background: linear-gradient(180deg, #1c1c1c 0%, #141414 100%);
@@ -941,7 +939,7 @@ section h2 {
 <nav class="nav">
   <div class="container nav-inner">
     <div class="logo">MaestrIA<span>.</span>Video</div>
-    <a href="#pricing" class="nav-cta" onclick="trackClick('nav-scroll')">Empezar — $55/año</a>
+    <a href="#pricing" class="nav-cta" onclick="trackClick('nav-scroll')">Ver planes — Desde $9/mes</a>
   </div>
 </nav>
 
@@ -1074,8 +1072,8 @@ section h2 {
 <!-- ============ PRICING — Funnelish-style 3 buy boxes ============ -->
 <section class="pricing-wrap" id="pricing">
   <div class="container">
-    <h2>⚡ Precio de lanzamiento — solo esta semana</h2>
-    <p class="section-sub">Acceso anual completo a MaestrIA Video. Un solo pago, sin renovaciones automáticas.</p>
+    <h2>⚡ Elige tu plan de acceso</h2>
+    <p class="section-sub">Dos opciones. Mismo bootcamp completo. Cancela cuando quieras.</p>
 
     <!-- Trust ribbon above buy boxes -->
     <div class="trust-ribbon">
@@ -1217,8 +1215,8 @@ section h2 {
 
 <!-- ============ STICKY MOBILE CTA BAR ============ -->
 <div class="mobile-cta-bar">
-  <div class="price-mini">$55 USD<span>1 año · pago único · garantía 7 días</span></div>
-  <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-mini" onclick="trackClick('sticky-mobile')">Empezar →</a>
+  <div class="price-mini">Desde $9/mes<span>o $55/año · garantía 7 días</span></div>
+  <a href="#pricing" class="cta-mini" onclick="trackClick('sticky-mobile')">Ver planes →</a>
 </div>
 
 <script>
