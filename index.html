@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="format-detection" content="telephone=no" />
+<title>MaestrIA Video — El Futuro de la Creación de Contenido con IA</title>
+<meta name="description" content="El bootcamp #1 en español para dominar la creación de video con Inteligencia Artificial. Aprende a crear videos hiperrealistas desde tu laptop. Acceso anual por $55 USD." />
+
+<!-- Open Graph / Social -->
+<meta property="og:title" content="MaestrIA Video — Crea videos con IA que las marcas pagan $2,000 USD" />
+<meta property="og:description" content="El bootcamp #1 en español para dominar la creación de video con IA. Sin cámara, sin estudio, sin equipo." />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="es_LA" />
+<meta name="theme-color" content="#0a0a0a" />
+
+<!-- Meta Pixel placeholder — replace PIXEL_ID once provided -->
+<!-- <script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', 'PIXEL_ID');
+fbq('track', 'PageView');
+</script> -->
+
+<style>
+:root {
+  --bg: #0a0a0a;
+  --bg-card: #141414;
+  --bg-elevated: #1c1c1c;
+  --border: #2a2a2a;
+  --text: #f5f5f5;
+  --text-muted: #a3a3a3;
+  --text-dim: #6b6b6b;
+  --accent: #ff6b35;
+  --accent-hover: #ff8757;
+  --accent-glow: rgba(255, 107, 53, 0.4);
+  --success: #22c55e;
+  --gold: #f5c518;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --max-w: 1180px;
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ============ NAV ============ */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+.logo {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+.logo span { color: var(--accent); }
+.nav-cta {
+  padding: 10px 18px;
+  background: var(--accent);
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+/* ============ HERO ============ */
+.hero {
+  position: relative;
+  padding: 80px 0 60px;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.6;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.eyebrow {
+  display: inline-block;
+  padding: 6px 14px;
+  background: rgba(255, 107, 53, 0.12);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  color: var(--accent);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: clamp(34px, 6vw, 64px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+.hero h1 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.hero-sub {
+  font-size: clamp(17px, 2vw, 21px);
+  color: var(--text-muted);
+  margin-bottom: 36px;
+  line-height: 1.5;
+}
+.cta-primary {
+  display: inline-block;
+  padding: 18px 36px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 17px;
+  transition: all 0.2s;
+  box-shadow: 0 10px 40px var(--accent-glow);
+}
+.cta-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 15px 50px var(--accent-glow);
+}
+.trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.trust-strip span { display: inline-flex; align-items: center; gap: 6px; }
+.trust-strip span::before {
+  content: '✓';
+  color: var(--success);
+  font-weight: 700;
+}
+
+/* ============ SECTION BASE ============ */
+section {
+  padding: 80px 0;
+  position: relative;
+}
+section h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.section-sub {
+  text-align: center;
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 640px;
+  margin: 0 auto 56px;
+}
+
+/* ============ VALUE PROPS ============ */
+.bullets {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.bullet {
+  padding: 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  transition: all 0.2s;
+}
+.bullet:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.bullet-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 107, 53, 0.12);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 16px;
+  font-size: 20px;
+}
+.bullet h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.bullet p {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* ============ LEARN ============ */
+.learn-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.learn-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.learn-item::before {
+  content: '▶';
+  color: var(--accent);
+  font-size: 12px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* ============ PRICING ============ */
+.pricing-wrap {
+  background: var(--bg-card);
+}
+.pricing-card {
+  max-width: 540px;
+  margin: 0 auto;
+  background: linear-gradient(180deg, #1c1c1c 0%, #141414 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--accent) 0%, transparent 50%);
+  z-index: -1;
+  opacity: 0.3;
+}
+.price-eyebrow {
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.price-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+.price-row {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.price-row .currency {
+  font-size: 24px;
+  vertical-align: top;
+  color: var(--text-muted);
+}
+.price-row .amount {
+  font-size: 72px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.price-row .period {
+  font-size: 16px;
+  color: var(--text-muted);
+  display: block;
+  margin-top: 4px;
+}
+.price-note {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+.price-features {
+  list-style: none;
+  margin-bottom: 28px;
+}
+.price-features li {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+.price-features li:last-child { border-bottom: none; }
+.price-features li::before {
+  content: '✓';
+  color: var(--success);
+  font-weight: 700;
+  font-size: 18px;
+}
+.price-cta {
+  display: block;
+  text-align: center;
+  width: 100%;
+}
+.payment-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.payment-row span {
+  padding: 4px 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ============ GUARANTEE ============ */
+.guarantee {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 48px 32px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  position: relative;
+}
+.guarantee-badge {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--success), #16a34a);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 20px;
+  font-size: 36px;
+  color: #fff;
+  box-shadow: 0 10px 40px rgba(34, 197, 94, 0.4);
+}
+.guarantee h2 { font-size: 28px; margin-bottom: 12px; }
+.guarantee p { color: var(--text-muted); font-size: 17px; }
+
+/* ============ FAQ ============ */
+.faq-wrap {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.faq-item {
+  margin-bottom: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: all 0.2s;
+}
+.faq-item:hover { border-color: #3a3a3a; }
+.faq-item summary {
+  padding: 20px 24px;
+  font-weight: 600;
+  font-size: 17px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  font-size: 24px;
+  color: var(--accent);
+  font-weight: 400;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item .answer {
+  padding: 0 24px 22px;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ============ FINAL CTA ============ */
+.final-cta {
+  text-align: center;
+  padding: 100px 0;
+  position: relative;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.5;
+}
+.final-cta > * { position: relative; z-index: 1; }
+.final-cta h2 { font-size: clamp(32px, 5vw, 52px); margin-bottom: 16px; }
+.final-cta p { color: var(--text-muted); font-size: 19px; margin-bottom: 32px; }
+
+/* ============ FOOTER ============ */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 14px;
+}
+.footer-links { margin-top: 12px; }
+.footer-links a { margin: 0 12px; color: var(--text-muted); }
+.footer-links a:hover { color: var(--accent); }
+
+/* ============ MOBILE ============ */
+@media (max-width: 640px) {
+  .hero { padding: 56px 0 40px; }
+  section { padding: 56px 0; }
+  .section-sub { margin-bottom: 40px; }
+  .pricing-card { padding: 32px 20px; }
+  .price-row .amount { font-size: 60px; }
+  .nav-cta { padding: 8px 14px; font-size: 13px; }
+  .cta-primary { padding: 16px 28px; font-size: 16px; }
+  .guarantee { padding: 36px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="container nav-inner">
+    <div class="logo">MaestrIA<span>.</span>Video</div>
+    <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="nav-cta" onclick="trackClick('nav')">Empezar — $55/año</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container hero-inner">
+    <span class="eyebrow">Bootcamp #1 en español de creación de video con IA</span>
+    <h1>Crea videos hiperrealistas con IA que las marcas pagan <em>$2,000 USD</em> — sin cámara, sin estudio, sin equipo.</h1>
+    <p class="hero-sub">El flujo de trabajo paso a paso para dominar Veo 3, Runway, Sora, Kling y Midjourney desde tu laptop. En español, sin teoría inútil.</p>
+    <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-primary" onclick="trackClick('hero')">Empezar ahora — $55 USD / año →</a>
+    <div class="trust-strip">
+      <span>Pago único</span>
+      <span>Garantía de 7 días</span>
+      <span>Acceso inmediato</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ VALUE PROPS ============ -->
+<section id="benefits">
+  <div class="container">
+    <h2>Lo que MaestrIA Video te da</h2>
+    <p class="section-sub">El sistema completo para crear, escalar y monetizar contenido de video con Inteligencia Artificial.</p>
+    <div class="bullets">
+      <div class="bullet">
+        <div class="bullet-icon">🎥</div>
+        <h3>Sin cámara, sin estudio</h3>
+        <p>Solo tu laptop y las herramientas correctas. Cero inversión inicial en equipo o producción.</p>
+      </div>
+      <div class="bullet">
+        <div class="bullet-icon">⚡</div>
+        <h3>Flujo hiperrealista</h3>
+        <p>El método que usan los estudios profesionales, adaptado para que tú lo ejecutes solo. Paso a paso.</p>
+      </div>
+      <div class="bullet">
+        <div class="bullet-icon">📦</div>
+        <h3>+100 plantillas y prompts</h3>
+        <p>Probados en anuncios virales, contenido corporativo, reels y videos cinematográficos. Listos para usar.</p>
+      </div>
+      <div class="bullet">
+        <div class="bullet-icon">💬</div>
+        <h3>Comunidad en español</h3>
+        <p>Clases en vivo cada semana, feedback directo, red real de creadores que ya están monetizando.</p>
+      </div>
+      <div class="bullet">
+        <div class="bullet-icon">💸</div>
+        <h3>Monetización clara</h3>
+        <p>Cómo vender estos videos a marcas, agencias y emprendedores entre $500 y $2,000 USD por proyecto.</p>
+      </div>
+      <div class="bullet">
+        <div class="bullet-icon">🛡️</div>
+        <h3>Garantía total 7 días</h3>
+        <p>Si no estás impresionado con lo que puedes crear, devolvemos el 100% sin preguntas ni formularios.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT YOU LEARN ============ -->
+<section style="padding-top: 0;">
+  <div class="container">
+    <h2>Lo que vas a aprender</h2>
+    <p class="section-sub">Habilidades reales que se traducen en ingresos, no teoría.</p>
+    <div class="learn-grid">
+      <div class="learn-item">Cómo escribir prompts cinematográficos en 5 minutos.</div>
+      <div class="learn-item">Cómo combinar Veo 3 + Runway + Kling para resultados que parecen rodados con cámara real.</div>
+      <div class="learn-item">Cómo vender estos videos a marcas y agencias por $500–$2,000 USD.</div>
+      <div class="learn-item">Cómo crear anuncios de Meta y TikTok 100% generados por IA.</div>
+      <div class="learn-item">Cómo automatizar tu producción para entregar más en menos tiempo.</div>
+      <div class="learn-item">Cómo construir un portafolio que venda sin necesidad de mostrar tu cara.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="pricing-wrap" id="pricing">
+  <div class="container">
+    <h2>Un solo pago. Un año completo.</h2>
+    <p class="section-sub">Sin renovaciones automáticas. Sin letra chica. Sin sorpresas.</p>
+    <div class="pricing-card">
+      <div class="price-eyebrow">Plan Anual</div>
+      <h3 class="price-title">MaestrIA Video — Acceso Completo</h3>
+      <div class="price-row">
+        <span class="currency">$</span><span class="amount">55</span>
+        <span class="period">USD · pago único · 12 meses de acceso</span>
+      </div>
+      <p class="price-note">Equivalente a $4.58 USD al mes.</p>
+      <ul class="price-features">
+        <li>Acceso ilimitado a todo el contenido del bootcamp</li>
+        <li>Comunidad privada en español + clases en vivo</li>
+        <li>+100 plantillas y prompts probados</li>
+        <li>Soporte directo del equipo MaestrIA</li>
+        <li>Garantía total de 7 días</li>
+        <li>Pago único · no se renueva automáticamente</li>
+      </ul>
+      <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-primary price-cta" onclick="trackClick('pricing')">Quiero entrar a MaestrIA Video →</a>
+      <div class="payment-row">
+        <span>VISA</span><span>MASTERCARD</span><span>AMEX</span><span>OXXO</span><span>PIX</span><span>SPEI</span><span>PSE</span><span>MERCADO PAGO</span><span>SERVIPAG</span><span>MACH</span><span>YAPE</span><span>NEQUI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUARANTEE ============ -->
+<section>
+  <div class="container">
+    <div class="guarantee">
+      <div class="guarantee-badge">✓</div>
+      <h2>Garantía total de 7 días</h2>
+      <p>Pruébalo durante una semana completa. Si no estás impresionado con lo que puedes crear con IA, escríbenos un email y te devolvemos el 100% de tu dinero. Sin preguntas, sin formularios complicados, sin letra chica.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="container">
+    <h2>Preguntas frecuentes</h2>
+    <p class="section-sub">Todo lo que necesitas saber antes de empezar.</p>
+    <div class="faq-wrap">
+      <details class="faq-item">
+        <summary>¿Necesito experiencia previa?</summary>
+        <div class="answer">No. Empezamos desde cero. Si sabes abrir una laptop, estás listo. El bootcamp está diseñado para llevarte de cero a creador profesional de video con IA.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué herramientas vamos a usar?</summary>
+        <div class="answer">Las mismas que pagan los estudios profesionales: Veo 3, Runway, Sora, Kling, Midjourney, ElevenLabs y más. Te enseñamos qué usar para cada tipo de proyecto y cómo combinarlas para resultados hiperrealistas.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cuánto tiempo necesito al día?</summary>
+        <div class="answer">Mínimo 30 minutos al día. Los primeros resultados reales aparecen en las primeras 2 semanas si sigues el plan de estudios.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Funciona en mi país?</summary>
+        <div class="answer">Sí. Aceptamos pagos locales en México (OXXO/SPEI), Brasil (PIX), Colombia (PSE/Nequi/Bancolombia), Chile (Servipag/MACH), Perú (Yape/PagoEfectivo) y Argentina (Mercado Pago). Todo el contenido es 100% en español.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Puedo cancelar y pedir reembolso?</summary>
+        <div class="answer">Sí. Garantía total de 7 días — si en una semana no estás impresionado, devolvemos el 100% sin preguntas.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿El pago se renueva automáticamente?</summary>
+        <div class="answer">No. El Plan Anual es un pago único. Después de 12 meses decides tú si quieres renovar. No te cobramos nada automáticamente.</div>
+      </details>
+      <details class="faq-item">
+        <summary>¿Cómo accedo al contenido después de pagar?</summary>
+        <div class="answer">Acceso inmediato. Después del pago recibes un email con tus credenciales para el área de miembros y la comunidad. Funciona en celular y computadora.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta">
+  <div class="container">
+    <h2>Empieza a crear con IA hoy.</h2>
+    <p>$55 USD por 12 meses completos. Acceso inmediato. Garantía de 7 días.</p>
+    <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-primary" onclick="trackClick('final')">Quiero entrar a MaestrIA Video →</a>
+    <div class="trust-strip" style="margin-top: 24px;">
+      <span>Pago único</span>
+      <span>Garantía 7 días</span>
+      <span>Acceso inmediato</span>
+      <span>Pagos locales aceptados</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div>© 2026 MaestrIA Video · Vega Tech Ltd · Hong Kong</div>
+    <div class="footer-links">
+      <a href="mailto:soporte@maestriavideo.com">soporte@maestriavideo.com</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8">Empezar</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// CTA click tracking (fires when Pixel is wired)
+function trackClick(location) {
+  if (typeof fbq !== 'undefined') {
+    fbq('track', 'InitiateCheckout', { content_name: 'Plan Anual MaestrIA', value: 55, currency: 'USD', source: location });
+  }
+}
+</script>
+
+</body>
+</html>
