@@ -584,28 +584,29 @@ section h2 {
   font-weight: 700;
   margin-bottom: 20px;
 }
-.local-prices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  margin-bottom: 18px;
-  font-size: 12px;
+/* USD equivalent (visible when local currency replaces USD) */
+.usd-eq {
+  font-size: 13px;
   color: var(--text-muted);
-  align-items: center;
   font-weight: 600;
+  margin-top: -4px;
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+  display: none;
 }
-.local-prices-label { color: var(--text-dim); margin-right: 2px; }
-.local-prices span[data-cc] {
-  padding: 2px 8px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+.usd-eq.is-active { display: block; }
+
+/* Plan Mensual (secondary) — orange accents */
+.plan-card.secondary .plan-name { color: var(--accent); }
+.plan-card.secondary .plan-btn {
+  background: transparent !important;
+  border: 1px solid var(--accent) !important;
+  color: var(--accent) !important;
 }
-.local-prices span[data-cc].user-country {
-  background: rgba(255, 107, 53, 0.15);
-  border-color: var(--accent);
-  color: var(--accent);
-  font-weight: 700;
+.plan-card.secondary .plan-btn:hover {
+  background: rgba(255, 107, 53, 0.12) !important;
+  border-color: var(--accent-hover) !important;
+  color: var(--accent-hover) !important;
 }
 .plan-features-3 {
   list-style: none;
@@ -1085,11 +1086,12 @@ section h2 {
 
     <div class="plans-3">
 
-      <!-- 1. PLAN MENSUAL — Hotmart product 7749622 (in Draft, awaiting approval ~1-3d) -->
+      <!-- 1. PLAN MENSUAL -->
       <div class="plan-card secondary">
         <div class="plan-name">Plan Mensual</div>
         <p class="plan-tagline">Menos de $0.30/día para mantenerte a la vanguardia.</p>
-        <div class="plan-bigprice"><span class="currency">$</span>9<span class="unit"> /mes</span></div>
+        <div class="plan-bigprice" data-usd="9"><span class="currency">$</span>9<span class="unit"> /mes</span></div>
+        <div class="usd-eq" data-usd-eq="9">≈ $9 USD</div>
         <div class="plan-strike">$0.30/día</div>
         <ul class="plan-features-3">
           <li>Acceso ilimitado al bootcamp</li>
@@ -1107,10 +1109,11 @@ section h2 {
         <div class="plan-banner">🔥 ¡Mejor Valor!</div>
         <div class="plan-name">Plan Anual</div>
         <p class="plan-tagline">Ahorra más de un 45% frente al pago mensual.</p>
-        <div class="plan-bigprice"><span class="currency">$</span>55<span class="unit"> /año</span></div>
+        <div class="plan-bigprice" data-usd="55"><span class="currency">$</span>55<span class="unit"> /año</span></div>
+        <div class="usd-eq" data-usd-eq="55">≈ $55 USD</div>
         <div class="plan-strike">$108 si pagas mensual</div>
         <div class="plan-save">Ahorras más de un 45%</div>
-        <div class="local-prices" id="localPrices">
+        <div class="local-prices" id="localPrices" style="display:none">
           <span class="local-prices-label">≈</span>
           <span data-cc="MX">MX$945</span>
           <span data-cc="AR">AR$54.000</span>
@@ -1204,7 +1207,7 @@ section h2 {
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="container">
-    <div>© 2026 MaestrIA Video · Vega Tech Ltd · Hong Kong</div>
+    <div>© 2026 MaestrIA Video</div>
     <div class="footer-links">
       <a href="mailto:soporte@maestriavideo.com">soporte@maestriavideo.com</a>
       <a href="#faq">FAQ</a>
@@ -1255,22 +1258,40 @@ function trackClick(location) {
 })();
 window.dataLayer.push({ event: 'page_view', page: location.pathname, search: location.search });
 
-// ============ COUNTRY DETECTION ============
+// ============ COUNTRY DETECTION — swap main price to local currency ============
+const FX = {
+  MX: { sym: 'MX$', rate: 17 },
+  AR: { sym: 'AR$', rate: 980 },
+  CO: { sym: 'CO$', rate: 4200 },
+  CL: { sym: 'CL$', rate: 920 },
+  PE: { sym: 'S/', rate: 3.8 },
+  BR: { sym: 'R$', rate: 5.4 },
+  ES: { sym: '€', rate: 0.92 }
+};
 (function() {
   fetch('https://ipapi.co/json/', { mode: 'cors' })
     .then(r => r.ok ? r.json() : null)
     .then(d => {
       if (!d || !d.country_code) return;
       const cc = d.country_code;
-      const el = document.querySelector(`.local-prices span[data-cc="${cc}"]`);
-      if (el) el.classList.add('user-country');
       window.dataLayer.push({ event: 'country_detected', country: cc, region: d.region });
+      const fx = FX[cc];
+      if (!fx) return;
+      document.querySelectorAll('[data-usd]').forEach(el => {
+        const usd = parseFloat(el.dataset.usd);
+        const unit = el.querySelector('.unit')?.textContent || '';
+        el.innerHTML = '<span class="currency">' + fx.sym + '</span>' +
+          Math.round(usd * fx.rate).toLocaleString('es') +
+          '<span class="unit">' + unit + '</span>';
+      });
+      document.querySelectorAll('.usd-eq').forEach(el => el.classList.add('is-active'));
     })
     .catch(() => {});
 })();
 
 // ============ HERO CAROUSEL — main view + thumbnail strip ============
-const VIDEO_EMBED = "https://www.youtube.com/embed/_hCOmDO9VOk?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1";
+// Click-to-play with sound (AIVB pattern — no autoplay-muted)
+const VIDEO_EMBED = "https://www.youtube.com/embed/_hCOmDO9VOk?controls=1&modestbranding=1&rel=0&playsinline=1";
 
 (function() {
   const mainView = document.getElementById('mainView');

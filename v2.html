@@ -423,31 +423,29 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   font-weight: 700;
   margin-bottom: 20px;
 }
-/* Local currency strip */
-.local-prices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
-  margin-bottom: 18px;
-  font-size: 12px;
+/* USD equivalent shown when local currency is active */
+.usd-eq {
+  font-size: 13px;
   color: var(--text-muted);
-  align-items: center;
   font-weight: 600;
-}
-.local-prices-label { color: var(--text-dim); margin-right: 2px; }
-.local-prices span[data-cc] {
-  padding: 2px 8px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: 6px;
+  margin-top: -4px;
+  margin-bottom: 6px;
   letter-spacing: 0.01em;
-  transition: all 0.2s;
+  display: none;
 }
-.local-prices span[data-cc].user-country {
-  background: rgba(255, 107, 53, 0.15);
-  border-color: var(--accent);
-  color: var(--accent);
-  font-weight: 700;
+.usd-eq.is-active { display: block; }
+
+/* Plan Mensual (secondary) — orange accents so it doesn't look "lesser" */
+.plan.secondary .plan-name { color: var(--accent); }
+.plan.secondary .plan-cta {
+  background: transparent !important;
+  border: 1px solid var(--accent) !important;
+  color: var(--accent) !important;
+}
+.plan.secondary .plan-cta:hover {
+  background: rgba(255, 107, 53, 0.12) !important;
+  border-color: var(--accent-hover) !important;
+  color: var(--accent-hover) !important;
 }
 .plan-features {
   list-style: none;
@@ -781,11 +779,12 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
     <div class="plans-3">
 
-      <!-- 1. PLAN MENSUAL — Hotmart product 7749622 (in Draft, awaiting approval ~1-3d) -->
+      <!-- 1. PLAN MENSUAL -->
       <div class="plan secondary">
         <div class="plan-name">Plan Mensual</div>
         <p class="plan-tagline">Menos de $0.30/día para mantenerte a la vanguardia.</p>
-        <div class="plan-price"><span class="currency">$</span>9<span class="unit"> /mes</span></div>
+        <div class="plan-price" data-usd="9"><span class="currency">$</span>9<span class="unit"> /mes</span></div>
+        <div class="usd-eq" data-usd-eq="9">≈ $9 USD</div>
         <div class="plan-strike">$0.30/día</div>
         <ul class="plan-features">
           <li>Acceso ilimitado al bootcamp</li>
@@ -803,19 +802,10 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
         <div class="plan-banner">🔥 ¡Mejor Valor!</div>
         <div class="plan-name">Plan Anual</div>
         <p class="plan-tagline">Ahorra más de un 45% frente al pago mensual.</p>
-        <div class="plan-price"><span class="currency">$</span>55<span class="unit"> /año</span></div>
+        <div class="plan-price" data-usd="55"><span class="currency">$</span>55<span class="unit"> /año</span></div>
+        <div class="usd-eq" data-usd-eq="55">≈ $55 USD</div>
         <div class="plan-strike">$108 si pagas mensual</div>
         <div class="plan-save">Ahorras más de un 45%</div>
-        <!-- Local currency estimates (Hotmart auto-converts at checkout) -->
-        <div class="local-prices" id="localPrices">
-          <span class="local-prices-label">≈</span>
-          <span data-cc="MX">MX$945</span>
-          <span data-cc="AR">AR$54.000</span>
-          <span data-cc="CO">CO$230.000</span>
-          <span data-cc="CL">CL$50.500</span>
-          <span data-cc="PE">S/209</span>
-          <span data-cc="BR">R$295</span>
-        </div>
         <ul class="plan-features">
           <li>Todo lo del Plan Mensual</li>
           <li>12 meses por un solo pago</li>
@@ -873,11 +863,10 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="container">
-    <div>© 2026 MaestrIA Video · Vega Tech Ltd · Hong Kong</div>
+    <div>© 2026 MaestrIA Video</div>
     <div class="footer-links" style="margin-top:10px;">
       <a href="mailto:soporte@maestriavideo.com">soporte@maestriavideo.com</a>
       <a href="#pricing">Empezar</a>
-      <a href="/">Ver versión original</a>
     </div>
   </div>
 </footer>
@@ -929,24 +918,47 @@ function trackClick(location) {
 // Push a page_view event with the attribution so the dataLayer has full context
 window.dataLayer.push({ event: 'page_view', page: location.pathname, search: location.search });
 
-// ============ COUNTRY DETECTION — highlight user's local price ============
+// ============ COUNTRY DETECTION — swap main price into local currency ============
+// Approximate exchange rates (Hotmart does the real conversion at checkout).
+const FX = {
+  MX: { sym: 'MX$', rate: 17, period: 'mes/año' },
+  AR: { sym: 'AR$', rate: 980, period: 'mes/año' },
+  CO: { sym: 'CO$', rate: 4200, period: 'mes/año' },
+  CL: { sym: 'CL$', rate: 920, period: 'mes/año' },
+  PE: { sym: 'S/', rate: 3.8, period: 'mes/año' },
+  BR: { sym: 'R$', rate: 5.4, period: 'mes/año' },
+  ES: { sym: '€', rate: 0.92, period: 'mes/año' }
+};
+function fmtLocal(usd, fx) {
+  const amount = Math.round(usd * fx.rate);
+  return fx.sym + amount.toLocaleString('es');
+}
 (function() {
-  // Free, no-auth IP lookup. Falls back silently on failure.
   fetch('https://ipapi.co/json/', { mode: 'cors' })
     .then(r => r.ok ? r.json() : null)
     .then(d => {
       if (!d || !d.country_code) return;
       const cc = d.country_code;
-      const el = document.querySelector(`.local-prices span[data-cc="${cc}"]`);
-      if (el) el.classList.add('user-country');
-      // Push country into dataLayer for segment analytics
+      const fx = FX[cc];
       window.dataLayer.push({ event: 'country_detected', country: cc, region: d.region });
+      if (!fx) return; // US, CA, etc. → keep USD default
+      // Swap main price displays to local currency
+      document.querySelectorAll('[data-usd]').forEach(el => {
+        const usd = parseFloat(el.dataset.usd);
+        const unit = el.querySelector('.unit')?.textContent || '';
+        el.innerHTML = '<span class="currency">' + fx.sym + '</span>' +
+          Math.round(usd * fx.rate).toLocaleString('es') +
+          '<span class="unit">' + unit + '</span>';
+      });
+      // Reveal the "≈ $X USD" subtitle so buyers know the base USD price
+      document.querySelectorAll('.usd-eq').forEach(el => el.classList.add('is-active'));
     })
     .catch(() => {});
 })();
 
 // Carousel — swap main view on thumbnail click
-const VIDEO_EMBED = "https://www.youtube.com/embed/_hCOmDO9VOk?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1";
+// Click-to-play with sound (AIVB pattern — no autoplay-muted)
+const VIDEO_EMBED = "https://www.youtube.com/embed/_hCOmDO9VOk?controls=1&modestbranding=1&rel=0&playsinline=1";
 
 (function() {
   const mainView = document.getElementById('mainView');
