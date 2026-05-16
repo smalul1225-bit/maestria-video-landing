@@ -236,6 +236,31 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   line-height: 1.5;
 }
 
+/* ============ COUNTRY REACH STRIP ============ */
+.country-strip {
+  margin-top: 24px;
+  padding: 16px 20px;
+  background: rgba(255, 107, 53, 0.06);
+  border: 1px solid rgba(255, 107, 53, 0.25);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.country-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.03em;
+}
+.flag-row {
+  font-size: 22px;
+  letter-spacing: 4px;
+  filter: saturate(1.1);
+}
+
 /* ============ INSIDE / TIRED SECTIONS ============ */
 .section {
   padding: 48px 0;
@@ -467,6 +492,38 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .guarantee-mini span { display: inline-flex; align-items: center; gap: 6px; }
 .guarantee-mini span::before { content: '✓'; color: var(--success); font-weight: 800; }
 
+/* ============ TRUST RIBBON ABOVE BUY BOXES ============ */
+.trust-ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  margin-bottom: 32px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.trust-ribbon span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+/* Bigger price for popular plan */
+.plan.popular .plan-price {
+  font-size: 56px;
+  color: var(--text);
+}
+.plan.popular .plan-price .currency {
+  font-size: 26px;
+  color: var(--accent);
+}
+
 /* ============ FAQ ============ */
 .faq-wrap { max-width: 760px; margin: 0 auto; }
 .faq-item {
@@ -583,7 +640,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <nav class="nav">
   <div class="container nav-inner">
     <div class="logo"><span class="logo-mark">M</span>MaestrIA<span>.</span>Video</div>
-    <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="nav-cta" onclick="trackClick('nav')">Empezar — $9/mes</a>
+    <a href="#pricing" class="nav-cta" onclick="trackClick('nav-scroll')">Ver planes — Desde $9/mes</a>
   </div>
 </nav>
 
@@ -628,12 +685,18 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
     <!-- Trust bullets list -->
     <ul class="trust-list">
-      <li>⭐ Comunidad Top 1% en Skool</li>
+      <li>⭐ Comunidad Top 1% en español</li>
       <li>🥇 Curso de Video/Imagen con IA Clasificado #1 en Skool</li>
       <li>🏆 Clasificado #22 a Nivel Global entre 250,000 Comunidades</li>
       <li>🚨 Solo quedan <strong>11 cupos a $9</strong></li>
       <li>‼️ Al llegar a 20,800 miembros, los nuevos miembros pagarán <strong>$50/mes</strong></li>
     </ul>
+
+    <!-- Country reach strip -->
+    <div class="country-strip">
+      <span class="country-label">Para creadores en toda LATAM</span>
+      <span class="flag-row">🇲🇽 🇦🇷 🇨🇴 🇨🇱 🇵🇪 🇧🇷 🇪🇸 🇺🇸</span>
+    </div>
   </div>
 </header>
 
@@ -678,8 +741,16 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <!-- ============ PRICING — Funnelish-style 3 buy boxes ============ -->
 <section class="pricing-section" id="pricing">
   <div class="container">
-    <h2>⚡ Asegura tu tarifa de por vida</h2>
+    <h2>⚡ Comienza hoy y asegura tu tarifa de por vida</h2>
     <p class="sub">Tres opciones. Mismo acceso completo. Sin renovaciones sorpresa.</p>
+
+    <!-- Trust ribbon above buy boxes -->
+    <div class="trust-ribbon">
+      <span>💳 Pago 100% seguro</span>
+      <span>🛡 Garantía de 7 días</span>
+      <span>⚡ Acceso inmediato</span>
+      <span>🌎 Pagos locales en toda LATAM</span>
+    </div>
 
     <div class="plans-3">
 
@@ -687,7 +758,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       <!-- NOTE: needs separate Hotmart Subscription product. Currently linked to annual as placeholder. -->
       <div class="plan secondary">
         <div class="plan-name">Plan Mensual</div>
-        <p class="plan-tagline">Acceso completo. Cancela cuando quieras.</p>
+        <p class="plan-tagline">Menos de $0.30/día para mantenerte a la vanguardia.</p>
         <div class="plan-price"><span class="currency">$</span>9<span class="unit"> /mes</span></div>
         <div class="plan-strike">$0.30/día</div>
         <ul class="plan-features">
@@ -701,14 +772,14 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
         <div class="plan-payment-mini">Tarjeta · OXXO · PIX · SPEI · más</div>
       </div>
 
-      <!-- 2. PLAN ANUAL — MÁS POPULAR -->
+      <!-- 2. PLAN ANUAL — ¡MEJOR VALOR! -->
       <div class="plan popular">
-        <div class="plan-banner">🔥 Más Popular · Ahorra 49%</div>
+        <div class="plan-banner">🔥 ¡Mejor Valor!</div>
         <div class="plan-name">Plan Anual</div>
-        <p class="plan-tagline">12 meses completos. Un solo pago, sin renovaciones.</p>
+        <p class="plan-tagline">Ahorra más de un 45% frente al pago mensual.</p>
         <div class="plan-price"><span class="currency">$</span>55<span class="unit"> /año</span></div>
         <div class="plan-strike">$108 si pagas mensual</div>
-        <div class="plan-save">Ahorras $53 USD</div>
+        <div class="plan-save">Ahorras más de un 45%</div>
         <ul class="plan-features">
           <li>Todo lo del Plan Mensual</li>
           <li>12 meses por un solo pago</li>

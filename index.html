@@ -653,6 +653,39 @@ section h2 {
 .guarantee-mini span { display: inline-flex; align-items: center; gap: 6px; }
 .guarantee-mini span::before { content: '✓'; color: var(--success); font-weight: 800; }
 
+/* ============ TRUST RIBBON ABOVE BUY BOXES ============ */
+.trust-ribbon {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  max-width: 900px;
+  margin: 0 auto 32px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+.trust-ribbon span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+/* Bigger price for popular plan */
+.plan-card.popular .plan-bigprice {
+  font-size: 56px;
+  color: var(--text);
+}
+.plan-card.popular .plan-bigprice .currency {
+  font-size: 26px;
+  color: var(--accent);
+}
+
 /* ============ GUARANTEE ============ */
 .guarantee {
   max-width: 720px;
@@ -882,7 +915,7 @@ section h2 {
 <nav class="nav">
   <div class="container nav-inner">
     <div class="logo">MaestrIA<span>.</span>Video</div>
-    <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="nav-cta" onclick="trackClick('nav')">Empezar — $55/año</a>
+    <a href="#pricing" class="nav-cta" onclick="trackClick('nav-scroll')">Ver planes — Desde $9/mes</a>
   </div>
 </nav>
 
@@ -1015,15 +1048,23 @@ section h2 {
 <!-- ============ PRICING — Funnelish-style 3 buy boxes ============ -->
 <section class="pricing-wrap" id="pricing">
   <div class="container">
-    <h2>⚡ Asegura tu tarifa de por vida</h2>
+    <h2>⚡ Comienza hoy y asegura tu tarifa de por vida</h2>
     <p class="section-sub">Tres opciones. Mismo acceso completo. Sin renovaciones sorpresa.</p>
+
+    <!-- Trust ribbon above buy boxes -->
+    <div class="trust-ribbon">
+      <span>💳 Pago 100% seguro</span>
+      <span>🛡 Garantía de 7 días</span>
+      <span>⚡ Acceso inmediato</span>
+      <span>🌎 Pagos locales en toda LATAM</span>
+    </div>
 
     <div class="plans-3">
 
       <!-- 1. PLAN MENSUAL — needs separate Hotmart Subscription product. Currently links to annual checkout as placeholder. -->
       <div class="plan-card secondary">
         <div class="plan-name">Plan Mensual</div>
-        <p class="plan-tagline">Acceso completo. Cancela cuando quieras.</p>
+        <p class="plan-tagline">Menos de $0.30/día para mantenerte a la vanguardia.</p>
         <div class="plan-bigprice"><span class="currency">$</span>9<span class="unit"> /mes</span></div>
         <div class="plan-strike">$0.30/día</div>
         <ul class="plan-features-3">
@@ -1037,14 +1078,14 @@ section h2 {
         <div class="plan-payment-mini">Tarjeta · OXXO · PIX · SPEI · más</div>
       </div>
 
-      <!-- 2. PLAN ANUAL — Más Popular (live offer qp90ckm8) -->
+      <!-- 2. PLAN ANUAL — ¡Mejor Valor! (live offer qp90ckm8) -->
       <div class="plan-card popular">
-        <div class="plan-banner">🔥 Más Popular · Ahorra 49%</div>
+        <div class="plan-banner">🔥 ¡Mejor Valor!</div>
         <div class="plan-name">Plan Anual</div>
-        <p class="plan-tagline">12 meses completos. Un solo pago, sin renovaciones.</p>
+        <p class="plan-tagline">Ahorra más de un 45% frente al pago mensual.</p>
         <div class="plan-bigprice"><span class="currency">$</span>55<span class="unit"> /año</span></div>
         <div class="plan-strike">$108 si pagas mensual</div>
-        <div class="plan-save">Ahorras $53 USD</div>
+        <div class="plan-save">Ahorras más de un 45%</div>
         <ul class="plan-features-3">
           <li>Todo lo del Plan Mensual</li>
           <li>12 meses por un solo pago</li>
