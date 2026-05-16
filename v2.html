@@ -860,7 +860,7 @@ function trackClick(location) {
 }
 
 // Carousel — swap main view on thumbnail click
-const VIDEO_EMBED = "";  // <-- paste Loom or YouTube embed URL here
+const VIDEO_EMBED = "https://www.youtube.com/embed/_hCOmDO9VOk?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1";
 
 (function() {
   const mainView = document.getElementById('mainView');
@@ -884,6 +884,12 @@ const VIDEO_EMBED = "";  // <-- paste Loom or YouTube embed URL here
   }
 
   thumbs.forEach(t => t.addEventListener('click', () => setMain(t)));
+
+  // Auto-initialize main view to the video on page load if VIDEO_EMBED is set
+  if (VIDEO_EMBED) {
+    const videoThumb = document.querySelector('.thumb[data-type="video"]');
+    if (videoThumb) setMain(videoThumb);
+  }
 })();
 </script>
 

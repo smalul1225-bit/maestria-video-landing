@@ -1195,10 +1195,7 @@ function trackClick(location) {
 }
 
 // ============ HERO CAROUSEL — main view + thumbnail strip ============
-// When you provide a Loom or YouTube URL, set VIDEO_EMBED below and the first thumb plays video.
-// Loom example:   "https://www.loom.com/embed/VIDEO_ID?hide_owner=true&hide_share=true&hideEmbedTopBar=true&autoplay=1&muted=1"
-// YouTube example: "https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1"
-const VIDEO_EMBED = "";  // <-- paste embed URL here once you have it
+const VIDEO_EMBED = "https://www.youtube.com/embed/_hCOmDO9VOk?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1";
 
 (function() {
   const mainView = document.getElementById('mainView');
@@ -1222,6 +1219,12 @@ const VIDEO_EMBED = "";  // <-- paste embed URL here once you have it
   }
 
   thumbs.forEach(t => t.addEventListener('click', () => setMain(t)));
+
+  // Auto-load video as main view on page load
+  if (VIDEO_EMBED) {
+    const videoThumb = document.querySelector('.thumb[data-type="video"]');
+    if (videoThumb) setMain(videoThumb);
+  }
 })();
 </script>
 
