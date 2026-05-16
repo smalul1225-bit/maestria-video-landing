@@ -142,6 +142,10 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .hero h1 em {
   color: var(--accent);
   font-style: normal;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+  text-decoration-color: rgba(255, 107, 53, 0.6);
 }
 .hero-sub {
   font-size: clamp(17px, 2vw, 21px);
@@ -179,6 +183,58 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   content: '✓';
   color: var(--success);
   font-weight: 700;
+}
+
+/* ============ HERO CAROUSEL IMAGE ============ */
+.hero-carousel {
+  margin: 56px auto 0;
+  max-width: 1100px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 80px var(--accent-glow);
+  position: relative;
+}
+.hero-carousel img { width: 100%; display: block; }
+
+/* ============ VIDEO SECTION ============ */
+.video-section {
+  background: #000;
+  padding-top: 40px;
+}
+.video-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  background: #000;
+  aspect-ratio: 16/9;
+  position: relative;
+}
+.video-wrap video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============ PLACEHOLDER IMAGE SECTIONS ============ */
+.image-section {
+  padding: 40px 0;
+}
+.image-section img {
+  display: block;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  margin: 0 auto;
+}
+.image-section.reviews img {
+  max-width: 1200px;
+}
+.image-section.guarantee-img img {
+  max-width: 1100px;
 }
 
 /* ============ SECTION BASE ============ */
@@ -501,17 +557,35 @@ section h2 {
 <!-- ============ HERO ============ -->
 <header class="hero">
   <div class="container hero-inner">
-    <span class="eyebrow">Bootcamp #1 en español de creación de video con IA</span>
-    <h1>Crea videos hiperrealistas con IA que las marcas pagan <em>$2,000 USD</em> — sin cámara, sin estudio, sin equipo.</h1>
-    <p class="hero-sub">El flujo de trabajo paso a paso para dominar Veo 3, Runway, Sora, Kling y Midjourney desde tu laptop. En español, sin teoría inútil.</p>
+    <span class="eyebrow">Bootcamp en español de creación de video con IA</span>
+    <h1>Aprende a crear <em>videos e imágenes</em><br/><em>IA ultra realistas</em> — y conviértelos en <em>ingresos</em>.</h1>
+    <p class="hero-sub">El flujo completo para dominar Veo 3, Runway, Sora, Kling y Midjourney desde tu laptop. En español, sin teoría inútil.</p>
     <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-primary" onclick="trackClick('hero')">Empezar ahora — $55 USD / año →</a>
     <div class="trust-strip">
       <span>Pago único</span>
       <span>Garantía de 7 días</span>
       <span>Acceso inmediato</span>
     </div>
+    <!-- Hero carousel image (placeholder — will be split into HTML carousel later) -->
+    <div class="hero-carousel">
+      <img src="assets/hero-carousel.png" alt="Estudiantes de MaestrIA Video creando con IA" loading="eager" />
+    </div>
   </div>
 </header>
+
+<!-- ============ HERO VIDEO ============ -->
+<section class="video-section">
+  <div class="container">
+    <h2>Mira lo que crean nuestros estudiantes</h2>
+    <p class="section-sub">Cero cámaras. Cero estudios. Solo IA y la metodología correcta.</p>
+    <div class="video-wrap">
+      <video autoplay muted loop playsinline preload="metadata" poster="assets/hero-carousel.png">
+        <source src="assets/hero-video.mp4" type="video/mp4" />
+        Tu navegador no soporta video HTML5.
+      </video>
+    </div>
+  </div>
+</section>
 
 <!-- ============ VALUE PROPS ============ -->
 <section id="benefits">
@@ -598,14 +672,18 @@ section h2 {
   </div>
 </section>
 
-<!-- ============ GUARANTEE ============ -->
-<section>
+<!-- ============ REVIEWS (placeholder image — will rebuild as native HTML once we have real reviews) ============ -->
+<section class="image-section reviews">
   <div class="container">
-    <div class="guarantee">
-      <div class="guarantee-badge">✓</div>
-      <h2>Garantía total de 7 días</h2>
-      <p>Pruébalo durante una semana completa. Si no estás impresionado con lo que puedes crear con IA, escríbenos un email y te devolvemos el 100% de tu dinero. Sin preguntas, sin formularios complicados, sin letra chica.</p>
-    </div>
+    <h2 style="text-align:center;margin-bottom:32px;">Lo que dicen nuestros estudiantes</h2>
+    <img src="assets/reviews.png" alt="Reseñas de estudiantes de MaestrIA Video — placeholder" loading="lazy" />
+  </div>
+</section>
+
+<!-- ============ GUARANTEE (placeholder image — will rebuild as native HTML) ============ -->
+<section class="image-section guarantee-img">
+  <div class="container">
+    <img src="assets/guarantee.jpg" alt="Garantía de devolución del 100% del dinero — 7 días" loading="lazy" />
   </div>
 </section>
 
