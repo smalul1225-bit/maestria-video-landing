@@ -7,12 +7,23 @@
 <title>MaestrIA Video — El Futuro de la Creación de Contenido con IA</title>
 <meta name="description" content="El bootcamp #1 en español para dominar la creación de video con Inteligencia Artificial. Aprende a crear videos hiperrealistas desde tu laptop. Acceso anual por $55 USD." />
 
-<!-- Open Graph / Social -->
+<!-- Open Graph / Social — critical for WhatsApp/Messenger shares in LATAM -->
 <meta property="og:title" content="MaestrIA Video — Crea videos con IA que las marcas pagan $2,000 USD" />
-<meta property="og:description" content="El bootcamp #1 en español para dominar la creación de video con IA. Sin cámara, sin estudio, sin equipo." />
+<meta property="og:description" content="El bootcamp en español para dominar la creación de video con IA. Sin cámara, sin estudio, sin equipo. Acceso anual por $55 USD." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="es_LA" />
+<meta property="og:url" content="https://maestriavideo.com/" />
+<meta property="og:image" content="https://maestriavideo.com/assets/hero-carousel.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="MaestrIA Video — El bootcamp #1 de video con IA en español" />
+<meta name="twitter:description" content="Aprende a crear videos hiperrealistas con IA — sin cámara, sin estudio, sin equipo. $55 USD/año." />
+<meta name="twitter:image" content="https://maestriavideo.com/assets/hero-carousel.png" />
 <meta name="theme-color" content="#0a0a0a" />
+
+<!-- Favicon (SVG → inline, no extra request) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23ff6b35'/><text x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='34' fill='%23fff'>M</text></svg>" />
 
 <!-- Meta Pixel placeholder — replace PIXEL_ID once provided -->
 <!-- <script>
@@ -97,7 +108,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 /* ============ HERO ============ */
 .hero {
   position: relative;
-  padding: 80px 0 60px;
+  padding: 56px 0 48px;
   overflow: hidden;
 }
 .hero::before {
@@ -133,11 +144,11 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   margin-bottom: 24px;
 }
 .hero h1 {
-  font-size: clamp(34px, 6vw, 64px);
-  line-height: 1.05;
+  font-size: clamp(32px, 5.2vw, 56px);
+  line-height: 1.08;
   letter-spacing: -0.03em;
   font-weight: 800;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 .hero h1 em {
   color: var(--accent);
@@ -187,14 +198,15 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
 /* ============ HERO CAROUSEL IMAGE ============ */
 .hero-carousel {
-  margin: 56px auto 0;
-  max-width: 1100px;
+  margin: 0 auto 28px;
+  max-width: 900px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 80px var(--accent-glow);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 60px var(--accent-glow);
   position: relative;
 }
 .hero-carousel img { width: 100%; display: block; }
+.hero-sub { margin-bottom: 28px !important; }
 
 /* ============ VIDEO SECTION ============ */
 .video-section {
@@ -531,6 +543,92 @@ section h2 {
 .footer-links a { margin: 0 12px; color: var(--text-muted); }
 .footer-links a:hover { color: var(--accent); }
 
+/* ============ STICKY MOBILE CTA BAR (huge LATAM conversion lift) ============ */
+.mobile-cta-bar {
+  display: none;
+}
+@media (max-width: 768px) {
+  .mobile-cta-bar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 12px 16px env(safe-area-inset-bottom, 12px);
+    background: rgba(10, 10, 10, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border);
+    align-items: center;
+    gap: 12px;
+  }
+  .mobile-cta-bar .price-mini {
+    flex-shrink: 0;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .mobile-cta-bar .price-mini span {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  .mobile-cta-bar .cta-mini {
+    flex: 1;
+    padding: 14px 16px;
+    background: var(--accent);
+    color: #fff;
+    text-align: center;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: 0 6px 20px var(--accent-glow);
+  }
+  body { padding-bottom: 76px; }
+}
+
+/* ============ HOW IT WORKS — 3 PASOS ============ */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.step {
+  padding: 32px 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  position: relative;
+}
+.step-num {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 16px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  font-weight: 800;
+  box-shadow: 0 8px 24px var(--accent-glow);
+}
+.step h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.step p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
 /* ============ MOBILE ============ */
 @media (max-width: 640px) {
   .hero { padding: 56px 0 40px; }
@@ -554,21 +652,21 @@ section h2 {
   </div>
 </nav>
 
-<!-- ============ HERO ============ -->
+<!-- ============ HERO (carousel image right under headline — matches reference) ============ -->
 <header class="hero">
   <div class="container hero-inner">
     <span class="eyebrow">Bootcamp en español de creación de video con IA</span>
     <h1>Aprende a crear <em>videos e imágenes</em><br/><em>IA ultra realistas</em> — y conviértelos en <em>ingresos</em>.</h1>
+    <!-- Carousel image moved up — between headline and CTA -->
+    <div class="hero-carousel">
+      <img src="assets/hero-carousel.png" alt="Estudiantes de MaestrIA Video creando con IA" loading="eager" fetchpriority="high" />
+    </div>
     <p class="hero-sub">El flujo completo para dominar Veo 3, Runway, Sora, Kling y Midjourney desde tu laptop. En español, sin teoría inútil.</p>
     <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-primary" onclick="trackClick('hero')">Empezar ahora — $55 USD / año →</a>
     <div class="trust-strip">
       <span>Pago único</span>
       <span>Garantía de 7 días</span>
       <span>Acceso inmediato</span>
-    </div>
-    <!-- Hero carousel image (placeholder — will be split into HTML carousel later) -->
-    <div class="hero-carousel">
-      <img src="assets/hero-carousel.png" alt="Estudiantes de MaestrIA Video creando con IA" loading="eager" />
     </div>
   </div>
 </header>
@@ -639,6 +737,31 @@ section h2 {
       <div class="learn-item">Cómo crear anuncios de Meta y TikTok 100% generados por IA.</div>
       <div class="learn-item">Cómo automatizar tu producción para entregar más en menos tiempo.</div>
       <div class="learn-item">Cómo construir un portafolio que venda sin necesidad de mostrar tu cara.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS — 3 STEPS ============ -->
+<section style="padding-top: 0;">
+  <div class="container">
+    <h2>Cómo funciona en 3 pasos</h2>
+    <p class="section-sub">De cero a creador de video con IA en menos de 30 días.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Únete hoy</h3>
+        <p>Pago único de $55 USD. Acceso inmediato al bootcamp y a la comunidad privada en español.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Aprende el flujo</h3>
+        <p>30 minutos al día. Sigue el plan paso a paso. Domina Veo 3, Runway, Sora, Kling y Midjourney desde tu laptop.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Monetiza</h3>
+        <p>Crea videos hiperrealistas para marcas, agencias y emprendedores. Cobra $500–$2,000 USD por proyecto.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -751,6 +874,12 @@ section h2 {
     </div>
   </div>
 </footer>
+
+<!-- ============ STICKY MOBILE CTA BAR ============ -->
+<div class="mobile-cta-bar">
+  <div class="price-mini">$55 USD<span>1 año · pago único</span></div>
+  <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-mini" onclick="trackClick('sticky-mobile')">Empezar ahora →</a>
+</div>
 
 <script>
 // CTA click tracking (fires when Pixel is wired)
