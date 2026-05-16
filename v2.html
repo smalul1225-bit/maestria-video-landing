@@ -429,6 +429,32 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   font-weight: 700;
   margin-bottom: 20px;
 }
+/* Local currency strip */
+.local-prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  color: var(--text-muted);
+  align-items: center;
+  font-weight: 600;
+}
+.local-prices-label { color: var(--text-dim); margin-right: 2px; }
+.local-prices span[data-cc] {
+  padding: 2px 8px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  letter-spacing: 0.01em;
+  transition: all 0.2s;
+}
+.local-prices span[data-cc].user-country {
+  background: rgba(255, 107, 53, 0.15);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
 .plan-features {
   list-style: none;
   margin: 20px 0 24px;
@@ -786,6 +812,16 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
         <div class="plan-price"><span class="currency">$</span>55<span class="unit"> /año</span></div>
         <div class="plan-strike">$108 si pagas mensual</div>
         <div class="plan-save">Ahorras más de un 45%</div>
+        <!-- Local currency estimates (Hotmart auto-converts at checkout) -->
+        <div class="local-prices" id="localPrices">
+          <span class="local-prices-label">≈</span>
+          <span data-cc="MX">MX$945</span>
+          <span data-cc="AR">AR$54.000</span>
+          <span data-cc="CO">CO$230.000</span>
+          <span data-cc="CL">CL$50.500</span>
+          <span data-cc="PE">S/209</span>
+          <span data-cc="BR">R$295</span>
+        </div>
         <ul class="plan-features">
           <li>Todo lo del Plan Mensual</li>
           <li>12 meses por un solo pago</li>
@@ -859,11 +895,61 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 </div>
 
 <script>
+// ============ TRACKING — dataLayer + Pixel-ready ============
+window.dataLayer = window.dataLayer || [];
 function trackClick(location) {
+  // GTM/GA4-compatible event (works without Pixel — pre-wired)
+  window.dataLayer.push({
+    event: 'cta_click',
+    cta_location: location,
+    item_name: 'Plan Anual MaestrIA',
+    value: 55,
+    currency: 'USD',
+    timestamp: new Date().toISOString()
+  });
+  // Meta Pixel — no-op until ID is added; same payload as Hotmart expects
   if (typeof fbq !== 'undefined') {
-    fbq('track', 'InitiateCheckout', { content_name: 'MaestrIA Video', source: location });
+    fbq('track', 'InitiateCheckout', { content_name: 'Plan Anual MaestrIA', value: 55, currency: 'USD', source: location });
   }
 }
+
+// ============ UTM FORWARDING — preserves ad attribution all the way to Hotmart ============
+(function() {
+  const incoming = new URLSearchParams(window.location.search);
+  const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'src'];
+  const passthrough = {};
+  utmKeys.forEach(k => { if (incoming.has(k)) passthrough[k] = incoming.get(k); });
+  // Default fallback so even direct/email/social traffic gets attributed
+  if (!passthrough.utm_source) passthrough.utm_source = 'maestriavideo';
+  if (!passthrough.utm_medium) passthrough.utm_medium = 'landing';
+  if (!passthrough.src) passthrough.src = passthrough.utm_campaign || passthrough.utm_source;
+  // Rewrite every checkout link with the UTMs
+  document.querySelectorAll('a[href*="pay.hotmart.com"], a[href*="go.hotmart.com"]').forEach(a => {
+    try {
+      const u = new URL(a.href);
+      Object.keys(passthrough).forEach(k => u.searchParams.set(k, passthrough[k]));
+      a.href = u.toString();
+    } catch (e) {}
+  });
+})();
+// Push a page_view event with the attribution so the dataLayer has full context
+window.dataLayer.push({ event: 'page_view', page: location.pathname, search: location.search });
+
+// ============ COUNTRY DETECTION — highlight user's local price ============
+(function() {
+  // Free, no-auth IP lookup. Falls back silently on failure.
+  fetch('https://ipapi.co/json/', { mode: 'cors' })
+    .then(r => r.ok ? r.json() : null)
+    .then(d => {
+      if (!d || !d.country_code) return;
+      const cc = d.country_code;
+      const el = document.querySelector(`.local-prices span[data-cc="${cc}"]`);
+      if (el) el.classList.add('user-country');
+      // Push country into dataLayer for segment analytics
+      window.dataLayer.push({ event: 'country_detected', country: cc, region: d.region });
+    })
+    .catch(() => {});
+})();
 
 // Carousel — swap main view on thumbnail click
 const VIDEO_EMBED = "https://www.youtube.com/embed/_hCOmDO9VOk?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1";
