@@ -293,101 +293,179 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .is-for-you span { color: var(--accent); }
 
-/* ============ PRICING (dual plans side-by-side) ============ */
+/* ============ PRICING — Funnelish-style 3 buy boxes ============ */
 .pricing-section {
   padding: 64px 0;
   background: var(--bg-card);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
-.pricing-section h2 {
-  text-align: center;
-  margin-bottom: 8px;
-}
+.pricing-section h2 { text-align: center; margin-bottom: 8px; }
 .pricing-section .sub {
   text-align: center;
   color: var(--text-muted);
-  margin-bottom: 36px;
+  margin-bottom: 48px;
   font-size: 16px;
 }
-.plans {
+.plans-3 {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  max-width: 800px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 1100px;
   margin: 0 auto;
+  align-items: stretch;
 }
 .plan {
-  padding: 28px 24px;
+  position: relative;
   background: linear-gradient(180deg, #1c1c1c 0%, #141414 100%);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  position: relative;
+  padding: 32px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s;
 }
-.plan.best {
-  border-color: var(--accent);
-  box-shadow: 0 10px 40px var(--accent-glow);
+.plan:hover { transform: translateY(-3px); }
+.plan.popular {
+  border: 2px solid var(--accent);
+  box-shadow: 0 20px 60px var(--accent-glow);
+  padding-top: 58px;
+  background: linear-gradient(180deg, #1f1614 0%, #141414 100%);
 }
-.plan-tag {
+.plan-banner {
   position: absolute;
-  top: -12px;
-  right: 16px;
-  padding: 4px 12px;
+  top: 0;
+  left: -1px;
+  right: -1px;
   background: var(--accent);
   color: #fff;
-  border-radius: 999px;
-  font-size: 11px;
+  text-align: center;
+  padding: 10px 12px;
+  font-size: 12px;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
-.plan h3 {
-  font-size: 18px;
+.plan-name {
+  font-size: 14px;
   font-weight: 700;
-  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
 }
-.plan .price {
-  font-size: 40px;
+.plan.popular .plan-name { color: var(--accent); }
+.plan-tagline {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  min-height: 36px;
+}
+.plan-price {
+  font-size: 48px;
   font-weight: 800;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
+  line-height: 1;
   margin-bottom: 4px;
 }
-.plan .price .unit {
+.plan-price .currency {
+  font-size: 22px;
+  vertical-align: super;
+  color: var(--text-muted);
+  margin-right: 2px;
+}
+.plan-price .unit {
   font-size: 16px;
   font-weight: 600;
   color: var(--text-muted);
+  letter-spacing: 0;
 }
-.plan .price-note {
-  color: var(--text-muted);
-  font-size: 13px;
-  margin-bottom: 18px;
+.plan-strike {
+  color: var(--text-dim);
+  text-decoration: line-through;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+.plan-save {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--success);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.plan-features {
+  list-style: none;
+  margin: 20px 0 24px;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--border);
+  flex: 1;
+}
+.plan-features li {
+  padding: 7px 0;
+  font-size: 14px;
+  color: var(--text);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
   line-height: 1.4;
 }
+.plan-features li::before {
+  content: '✓';
+  color: var(--success);
+  font-weight: 800;
+  font-size: 14px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.plan-features li.dim { color: var(--text-muted); }
+.plan-features li.dim::before { color: var(--text-dim); }
 .plan-cta {
   display: block;
   text-align: center;
-  padding: 14px 18px;
+  padding: 15px 18px;
   background: var(--accent);
   color: #fff;
   border-radius: 999px;
   font-weight: 700;
   font-size: 15px;
   transition: all 0.2s;
+  margin-top: auto;
 }
 .plan-cta:hover { background: var(--accent-hover); transform: translateY(-1px); }
 .plan.secondary .plan-cta {
   background: transparent;
-  border: 1px solid var(--accent);
-  color: var(--accent);
+  border: 1px solid var(--border);
+  color: var(--text);
 }
-.plan.secondary .plan-cta:hover { background: rgba(255, 107, 53, 0.1); }
+.plan.secondary .plan-cta:hover { background: var(--bg-elevated); border-color: var(--accent); color: var(--accent); }
+.plan-payment-mini {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--text-dim);
+}
 .cancel-line {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 32px;
   font-size: 14px;
   color: var(--text-muted);
 }
 .cancel-line strong { color: var(--success); }
+.guarantee-mini {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.guarantee-mini span { display: inline-flex; align-items: center; gap: 6px; }
+.guarantee-mini span::before { content: '✓'; color: var(--success); font-weight: 800; }
 
 /* ============ FAQ ============ */
 .faq-wrap { max-width: 760px; margin: 0 auto; }
@@ -475,7 +553,16 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   .hero { padding: 32px 0 40px; }
   .section { padding: 36px 0; }
   .pricing-section { padding: 48px 0; }
-  .plans { grid-template-columns: 1fr; }
+  .plans-3 {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    gap: 14px;
+  }
+  .plan.popular {
+    transform: none;
+    order: -1;  /* Show most-popular first on mobile */
+  }
+  .plan-price { font-size: 40px; }
   .quick-info { font-size: 13px; gap: 8px 16px; }
   .checklist li, .tired-list li, .trust-list li { font-size: 15px; }
   .nav-cta { padding: 8px 14px; font-size: 13px; }
@@ -588,33 +675,80 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   </div>
 </section>
 
-<!-- ============ PRICING ============ -->
+<!-- ============ PRICING — Funnelish-style 3 buy boxes ============ -->
 <section class="pricing-section" id="pricing">
   <div class="container">
-    <h2>⚡ Comienza hoy y asegura tu tarifa de por vida</h2>
-    <p class="sub">Dos planes. Mismo acceso completo. Cancela cuando quieras.</p>
+    <h2>⚡ Asegura tu tarifa de por vida</h2>
+    <p class="sub">Tres opciones. Mismo acceso completo. Sin renovaciones sorpresa.</p>
 
-    <div class="plans">
-      <!-- Plan Mensual -->
+    <div class="plans-3">
+
+      <!-- 1. PLAN MENSUAL -->
+      <!-- NOTE: needs separate Hotmart Subscription product. Currently linked to annual as placeholder. -->
       <div class="plan secondary">
-        <h3>Plan Mensual</h3>
-        <div class="price">$9<span class="unit">/mes</span></div>
-        <p class="price-note">Menos de $0.30/día para mantenerte a la vanguardia.</p>
-        <!-- NOTE: monthly subscription requires a separate Hotmart product (Format: Subscription). Currently linked to annual checkout as placeholder. -->
+        <div class="plan-name">Plan Mensual</div>
+        <p class="plan-tagline">Acceso completo. Cancela cuando quieras.</p>
+        <div class="plan-price"><span class="currency">$</span>9<span class="unit"> /mes</span></div>
+        <div class="plan-strike">$0.30/día</div>
+        <ul class="plan-features">
+          <li>Acceso ilimitado al bootcamp</li>
+          <li>Comunidad privada en español</li>
+          <li>Clases en vivo semanales</li>
+          <li>Cancela en cualquier momento</li>
+          <li class="dim">Renovación automática mensual</li>
+        </ul>
         <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="plan-cta" onclick="trackClick('plan-monthly')">Empezar — $9/mes</a>
+        <div class="plan-payment-mini">Tarjeta · OXXO · PIX · SPEI · más</div>
       </div>
 
-      <!-- Plan Anual (Best Value) -->
-      <div class="plan best">
-        <div class="plan-tag">¡Mejor Valor!</div>
-        <h3>Plan Anual</h3>
-        <div class="price">$55<span class="unit">/año</span></div>
-        <p class="price-note">Ahorra más de un <strong style="color:var(--success)">45%</strong> frente al pago mensual.</p>
+      <!-- 2. PLAN ANUAL — MÁS POPULAR -->
+      <div class="plan popular">
+        <div class="plan-banner">🔥 Más Popular · Ahorra 49%</div>
+        <div class="plan-name">Plan Anual</div>
+        <p class="plan-tagline">12 meses completos. Un solo pago, sin renovaciones.</p>
+        <div class="plan-price"><span class="currency">$</span>55<span class="unit"> /año</span></div>
+        <div class="plan-strike">$108 si pagas mensual</div>
+        <div class="plan-save">Ahorras $53 USD</div>
+        <ul class="plan-features">
+          <li>Todo lo del Plan Mensual</li>
+          <li>12 meses por un solo pago</li>
+          <li>Sin renovación automática</li>
+          <li>Garantía total de 7 días</li>
+          <li>Bonus: pack de plantillas y prompts</li>
+          <li>Equivale a $4.58/mes</li>
+        </ul>
         <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="plan-cta" onclick="trackClick('plan-annual')">Empezar — $55/año</a>
+        <div class="plan-payment-mini">Tarjeta · OXXO · PIX · SPEI · Mercado Pago · más</div>
       </div>
+
+      <!-- 3. PLAN LIFETIME -->
+      <!-- NOTE: needs new $250 one-time offer in same Hotmart product. Currently linked to annual as placeholder. -->
+      <div class="plan secondary">
+        <div class="plan-name">Acceso de Por Vida</div>
+        <p class="plan-tagline">Paga una vez. Accede para siempre.</p>
+        <div class="plan-price"><span class="currency">$</span>250<span class="unit"> una vez</span></div>
+        <div class="plan-strike">$108/año recurrente</div>
+        <div class="plan-save">Mejor a partir del año 3</div>
+        <ul class="plan-features">
+          <li>Acceso de por vida a todo el contenido</li>
+          <li>Todas las actualizaciones futuras incluidas</li>
+          <li>Comunidad de por vida</li>
+          <li>Soporte prioritario</li>
+          <li>Sin renovaciones nunca</li>
+          <li>Garantía total de 7 días</li>
+        </ul>
+        <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="plan-cta" onclick="trackClick('plan-lifetime')">Acceso Lifetime — $250</a>
+        <div class="plan-payment-mini">Tarjeta · OXXO · PIX · SPEI · más</div>
+      </div>
+
     </div>
 
-    <p class="cancel-line"><strong>✅ Cancela en cualquier momento</strong> · Garantía total de 7 días · Acceso inmediato</p>
+    <p class="cancel-line"><strong>✅ Cancela en cualquier momento</strong> · 🛡 Garantía total de 7 días · ⚡ Acceso inmediato</p>
+    <div class="guarantee-mini">
+      <span>Pago seguro</span>
+      <span>+12 métodos de pago locales</span>
+      <span>Soporte 24/7</span>
+    </div>
   </div>
 </section>
 
