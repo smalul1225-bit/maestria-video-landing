@@ -196,58 +196,111 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   font-weight: 700;
 }
 
-/* ============ HERO CAROUSEL IMAGE ============ */
-.hero-carousel {
+/* ============ HERO CAROUSEL V2 — AIVB pattern: main view + thumbnail strip ============ */
+.hero-carousel-v2 {
   margin: 0 auto 28px;
   max-width: 900px;
+}
+.main-view {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 60px var(--accent-glow);
   position: relative;
 }
-.hero-carousel img { width: 100%; display: block; }
-.hero-sub { margin-bottom: 28px !important; }
-
-/* ============ VIDEO SECTION ============ */
-.video-section {
-  background: #000;
-  padding-top: 40px;
+.main-view img,
+.main-view iframe,
+.main-view video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: 0;
 }
-.video-wrap {
-  max-width: 1000px;
-  margin: 0 auto;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
-  background: #000;
-  aspect-ratio: 16/9;
+.main-view .video-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+  color: var(--text-muted);
+}
+.main-view .play-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: grid;
+  place-items: center;
+  font-size: 32px;
+  color: #fff;
+  box-shadow: 0 10px 40px var(--accent-glow);
+}
+.main-view .play-label {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.thumb-strip {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+.thumb {
   position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #1a1a1a;
+  border: 2px solid transparent;
+  padding: 0;
+  transition: all 0.15s;
 }
-.video-wrap video {
+.thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
 }
-
-/* ============ PLACEHOLDER IMAGE SECTIONS ============ */
-.image-section {
-  padding: 40px 0;
+.thumb:hover { transform: translateY(-2px); border-color: #3a3a3a; }
+.thumb.active {
+  border-color: var(--accent);
+  box-shadow: 0 6px 20px var(--accent-glow);
 }
-.image-section img {
-  display: block;
-  max-width: 100%;
+.thumb-play {
   width: 100%;
-  height: auto;
-  border-radius: var(--radius-lg);
-  margin: 0 auto;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #2a2a2a, #0a0a0a);
+  font-size: 22px;
+  color: var(--accent);
 }
-.image-section.reviews img {
-  max-width: 1200px;
+.thumb[data-type="video"] {
+  background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
 }
-.image-section.guarantee-img img {
-  max-width: 1100px;
+.thumb-label {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  pointer-events: none;
 }
+.thumb[data-type="image"] .thumb-label { display: none; }
+.hero-sub { margin-bottom: 28px !important; }
 
 /* ============ SECTION BASE ============ */
 section {
@@ -631,14 +684,25 @@ section h2 {
 
 /* ============ MOBILE ============ */
 @media (max-width: 640px) {
-  .hero { padding: 56px 0 40px; }
-  section { padding: 56px 0; }
-  .section-sub { margin-bottom: 40px; }
+  .hero { padding: 40px 0 32px; }
+  section { padding: 48px 0; }
+  .section-sub { margin-bottom: 32px; }
   .pricing-card { padding: 32px 20px; }
   .price-row .amount { font-size: 60px; }
   .nav-cta { padding: 8px 14px; font-size: 13px; }
   .cta-primary { padding: 16px 28px; font-size: 16px; }
   .guarantee { padding: 36px 20px; }
+  /* Horizontal-scroll thumbnails on mobile (AIVB pattern) */
+  .thumb-strip {
+    grid-template-columns: repeat(5, 22%);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .thumb { scroll-snap-align: start; }
+  .main-view .play-icon { width: 60px; height: 60px; font-size: 24px; }
+  .main-view .play-label { font-size: 11px; }
 }
 </style>
 </head>
@@ -652,15 +716,41 @@ section h2 {
   </div>
 </nav>
 
-<!-- ============ HERO (carousel image right under headline — matches reference) ============ -->
+<!-- ============ HERO — AIVB pattern: headline + main carousel view + thumbnail strip ============ -->
 <header class="hero">
   <div class="container hero-inner">
     <span class="eyebrow">Bootcamp en español de creación de video con IA</span>
     <h1>Aprende a crear <em>videos e imágenes</em><br/><em>IA ultra realistas</em> — y conviértelos en <em>ingresos</em>.</h1>
-    <!-- Carousel image moved up — between headline and CTA -->
-    <div class="hero-carousel">
-      <img src="assets/hero-carousel.png" alt="Estudiantes de MaestrIA Video creando con IA" loading="eager" fetchpriority="high" />
+
+    <!-- Main carousel + thumbnail strip -->
+    <div class="hero-carousel-v2">
+      <div class="main-view" id="mainView">
+        <!-- Default: video placeholder. Becomes <iframe> once user provides Loom/YouTube ID -->
+        <div class="video-placeholder">
+          <div class="play-icon">▶</div>
+          <div class="play-label">Video · pega tu Loom/YouTube ID</div>
+        </div>
+      </div>
+      <div class="thumb-strip" role="tablist" aria-label="Galería de MaestrIA Video">
+        <button class="thumb active" data-type="video" data-src="" aria-label="Video introductorio">
+          <div class="thumb-play">▶</div>
+          <span class="thumb-label">Video</span>
+        </button>
+        <button class="thumb" data-type="image" data-src="assets/hero-carousel.png" aria-label="Estudiantes creando con IA">
+          <img src="assets/hero-carousel.png" alt="Estudiantes" loading="lazy" />
+        </button>
+        <button class="thumb" data-type="image" data-src="assets/thumb-why20k.jpg" aria-label="Por qué construir con MaestrIA">
+          <img src="assets/thumb-why20k.jpg" alt="Comparación" loading="lazy" />
+        </button>
+        <button class="thumb" data-type="image" data-src="assets/reviews.png" aria-label="Reseñas de estudiantes">
+          <img src="assets/reviews.png" alt="Reseñas" loading="lazy" />
+        </button>
+        <button class="thumb" data-type="image" data-src="assets/guarantee.jpg" aria-label="Garantía 100% del dinero">
+          <img src="assets/guarantee.jpg" alt="Garantía" loading="lazy" />
+        </button>
+      </div>
     </div>
+
     <p class="hero-sub">El flujo completo para dominar Veo 3, Runway, Sora, Kling y Midjourney desde tu laptop. En español, sin teoría inútil.</p>
     <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-primary" onclick="trackClick('hero')">Empezar ahora — $55 USD / año →</a>
     <div class="trust-strip">
@@ -670,20 +760,6 @@ section h2 {
     </div>
   </div>
 </header>
-
-<!-- ============ HERO VIDEO (placeholder — replace VIDEO_ID with YouTube unlisted ID) ============ -->
-<section class="video-section">
-  <div class="container">
-    <h2>Mira lo que crean nuestros estudiantes</h2>
-    <p class="section-sub">Cero cámaras. Cero estudios. Solo IA y la metodología correcta.</p>
-    <div class="video-wrap video-placeholder">
-      <div style="display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;color:var(--text-muted);background:linear-gradient(135deg,#1a1a1a,#0a0a0a);">
-        <div style="font-size:48px;">▶</div>
-        <div style="font-size:14px;letter-spacing:0.1em;text-transform:uppercase;">Video placeholder · upload to YouTube unlisted, paste ID</div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ VALUE PROPS ============ -->
 <section id="benefits">
@@ -795,20 +871,9 @@ section h2 {
   </div>
 </section>
 
-<!-- ============ REVIEWS (placeholder image — will rebuild as native HTML once we have real reviews) ============ -->
-<section class="image-section reviews">
-  <div class="container">
-    <h2 style="text-align:center;margin-bottom:32px;">Lo que dicen nuestros estudiantes</h2>
-    <img src="assets/reviews.png" alt="Reseñas de estudiantes de MaestrIA Video — placeholder" loading="lazy" />
-  </div>
-</section>
-
-<!-- ============ GUARANTEE (placeholder image — will rebuild as native HTML) ============ -->
-<section class="image-section guarantee-img">
-  <div class="container">
-    <img src="assets/guarantee.jpg" alt="Garantía de devolución del 100% del dinero — 7 días" loading="lazy" />
-  </div>
-</section>
+<!-- Reviews + guarantee assets are now in the hero carousel (matches AIVB pattern) -->
+<!-- Standalone full-width image sections removed -->
+<!-- The text-based guarantee block below provides the conversion message -->
 
 <!-- ============ FAQ ============ -->
 <section id="faq">
@@ -888,6 +953,36 @@ function trackClick(location) {
     fbq('track', 'InitiateCheckout', { content_name: 'Plan Anual MaestrIA', value: 55, currency: 'USD', source: location });
   }
 }
+
+// ============ HERO CAROUSEL — main view + thumbnail strip ============
+// When you provide a Loom or YouTube URL, set VIDEO_EMBED below and the first thumb plays video.
+// Loom example:   "https://www.loom.com/embed/VIDEO_ID?hide_owner=true&hide_share=true&hideEmbedTopBar=true&autoplay=1&muted=1"
+// YouTube example: "https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0&playsinline=1"
+const VIDEO_EMBED = "";  // <-- paste embed URL here once you have it
+
+(function() {
+  const mainView = document.getElementById('mainView');
+  const thumbs = document.querySelectorAll('.thumb');
+  if (!mainView || !thumbs.length) return;
+
+  function setMain(thumb) {
+    thumbs.forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+    const type = thumb.dataset.type;
+    const src = thumb.dataset.src;
+    if (type === 'video') {
+      if (VIDEO_EMBED) {
+        mainView.innerHTML = '<iframe src="' + VIDEO_EMBED + '" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+      } else {
+        mainView.innerHTML = '<div class="video-placeholder"><div class="play-icon">▶</div><div class="play-label">Video · pega tu Loom/YouTube ID</div></div>';
+      }
+    } else if (type === 'image' && src) {
+      mainView.innerHTML = '<img src="' + src + '" alt="" />';
+    }
+  }
+
+  thumbs.forEach(t => t.addEventListener('click', () => setMain(t)));
+})();
 </script>
 
 </body>
