@@ -372,6 +372,10 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   transition: transform 0.2s;
 }
 .plan:hover { transform: translateY(-3px); }
+.plan.secondary {
+  border: 1px solid rgba(255, 107, 53, 0.35);
+  padding-top: 58px;
+}
 .plan.popular {
   border: 2px solid var(--accent);
   box-shadow: 0 20px 60px var(--accent-glow);
@@ -392,6 +396,11 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+.plan-banner.muted {
+  background: rgba(255, 107, 53, 0.12);
+  color: var(--accent);
+  border-bottom: 1px solid rgba(255, 107, 53, 0.25);
 }
 .plan-name {
   font-size: 14px;
@@ -442,6 +451,11 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   font-size: 12px;
   font-weight: 700;
   margin-bottom: 20px;
+}
+.plan-save.muted {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
 }
 /* USD equivalent shown when local currency is active */
 .usd-eq {
@@ -801,15 +815,18 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
       <!-- 1. PLAN MENSUAL -->
       <div class="plan secondary">
+        <div class="plan-banner muted">SIN COMPROMISO</div>
         <div class="plan-name">Plan Mensual</div>
         <p class="plan-tagline">Menos de $0.30/día para mantenerte a la vanguardia.</p>
         <div class="plan-price" data-usd="9"><span class="currency">$</span>9<span class="unit"> /mes</span></div>
         <div class="usd-eq" data-usd-eq="9">≈ $9 USD</div>
-        <div class="plan-strike">$0.30/día</div>
+        <div class="plan-strike">Sin contratos largos</div>
+        <div class="plan-save muted">Cancela cuando quieras</div>
         <ul class="plan-features">
           <li>Acceso ilimitado al bootcamp</li>
           <li>Comunidad privada en español</li>
           <li>Clases en vivo semanales</li>
+          <li>Garantía total de 7 días</li>
           <li>Cancela en cualquier momento</li>
           <li class="dim">Renovación automática mensual</li>
         </ul>
