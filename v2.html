@@ -334,11 +334,18 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .plans-3 {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 20px;
-  max-width: 820px;
+  max-width: 480px;
   margin: 0 auto;
   align-items: stretch;
+}
+/* MENSUAL hidden until Hotmart approves product 7749622. Re-enable by removing this rule. */
+.plan.secondary, .plan-card.secondary { display: none !important; }
+/* When MENSUAL is hidden, make popular plan even bigger for solo focus */
+.plan.popular, .plan-card.popular {
+  max-width: 480px;
+  margin: 0 auto;
 }
 .plan {
   position: relative;
@@ -640,7 +647,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <nav class="nav">
   <div class="container nav-inner">
     <div class="logo"><span class="logo-mark">M</span>MaestrIA<span>.</span>Video</div>
-    <a href="#pricing" class="nav-cta" onclick="trackClick('nav-scroll')">Ver planes — Desde $9/mes</a>
+    <a href="#pricing" class="nav-cta" onclick="trackClick('nav-scroll')">Empezar — $55/año</a>
   </div>
 </nav>
 
@@ -741,8 +748,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <!-- ============ PRICING — Funnelish-style 3 buy boxes ============ -->
 <section class="pricing-section" id="pricing">
   <div class="container">
-    <h2>⚡ Comienza hoy y asegura tu tarifa de por vida</h2>
-    <p class="sub">Tres opciones. Mismo acceso completo. Sin renovaciones sorpresa.</p>
+    <h2>⚡ Precio de lanzamiento — solo esta semana</h2>
+    <p class="sub">Acceso anual completo a MaestrIA Video. Un solo pago, sin renovaciones automáticas.</p>
 
     <!-- Trust ribbon above buy boxes -->
     <div class="trust-ribbon">
@@ -847,7 +854,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
 <!-- ============ STICKY MOBILE CTA ============ -->
 <div class="mobile-cta-bar">
-  <div class="price-mini">$9 USD<span>al mes · cancela cuando quieras</span></div>
+  <div class="price-mini">$55 USD<span>1 año · pago único · garantía 7 días</span></div>
   <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8" class="cta-mini" onclick="trackClick('sticky-mobile')">Empezar →</a>
 </div>
 
