@@ -1298,14 +1298,25 @@ function trackClick(location) {
 window.dataLayer.push({ event: 'page_view', page: location.pathname, search: location.search });
 
 // ============ COUNTRY DETECTION — swap main price to local currency ============
+// All Spanish-speaking countries + Brazil. Hotmart does the real conversion at checkout.
+// Countries that use USD natively (EC, SV, PA, PR) fall through to default USD display.
 const FX = {
-  MX: { sym: 'MX$', rate: 17 },
-  AR: { sym: 'AR$', rate: 980 },
-  CO: { sym: 'CO$', rate: 4200 },
-  CL: { sym: 'CL$', rate: 920 },
-  PE: { sym: 'S/', rate: 3.8 },
-  BR: { sym: 'R$', rate: 5.4 },
-  ES: { sym: '€', rate: 0.92 }
+  MX: { sym: 'MX$',  rate: 17 },
+  AR: { sym: 'AR$',  rate: 1000 },
+  CO: { sym: 'COP$', rate: 4200 },
+  CL: { sym: 'CL$',  rate: 920 },
+  PE: { sym: 'S/',   rate: 3.8 },
+  BR: { sym: 'R$',   rate: 5.4 },
+  ES: { sym: '€',    rate: 0.92 },
+  VE: { sym: 'Bs.',  rate: 40 },
+  BO: { sym: 'Bs',   rate: 6.9 },
+  DO: { sym: 'RD$',  rate: 58 },
+  UY: { sym: '$U',   rate: 40 },
+  PY: { sym: '₲',    rate: 7400 },
+  CR: { sym: '₡',    rate: 520 },
+  GT: { sym: 'Q',    rate: 7.8 },
+  HN: { sym: 'L',    rate: 25 },
+  NI: { sym: 'C$',   rate: 37 }
 };
 (function() {
   fetch('https://ipapi.co/json/', { mode: 'cors' })

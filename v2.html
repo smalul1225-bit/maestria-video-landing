@@ -955,16 +955,26 @@ function trackClick(location) {
 // Push a page_view event with the attribution so the dataLayer has full context
 window.dataLayer.push({ event: 'page_view', page: location.pathname, search: location.search });
 
-// ============ COUNTRY DETECTION — swap main price into local currency ============
-// Approximate exchange rates (Hotmart does the real conversion at checkout).
+// ============ COUNTRY DETECTION — swap main price to local currency ============
+// All Spanish-speaking countries + Brazil. Hotmart does the real conversion at checkout.
+// Countries that use USD natively (EC, SV, PA, PR) fall through to default USD display.
 const FX = {
-  MX: { sym: 'MX$', rate: 17, period: 'mes/año' },
-  AR: { sym: 'AR$', rate: 980, period: 'mes/año' },
-  CO: { sym: 'CO$', rate: 4200, period: 'mes/año' },
-  CL: { sym: 'CL$', rate: 920, period: 'mes/año' },
-  PE: { sym: 'S/', rate: 3.8, period: 'mes/año' },
-  BR: { sym: 'R$', rate: 5.4, period: 'mes/año' },
-  ES: { sym: '€', rate: 0.92, period: 'mes/año' }
+  MX: { sym: 'MX$',  rate: 17 },     // México — Peso mexicano
+  AR: { sym: 'AR$',  rate: 1000 },   // Argentina — Peso argentino
+  CO: { sym: 'COP$', rate: 4200 },   // Colombia — Peso colombiano
+  CL: { sym: 'CL$',  rate: 920 },    // Chile — Peso chileno
+  PE: { sym: 'S/',   rate: 3.8 },    // Perú — Sol peruano
+  BR: { sym: 'R$',   rate: 5.4 },    // Brasil — Real brasileño
+  ES: { sym: '€',    rate: 0.92 },   // España — Euro
+  VE: { sym: 'Bs.',  rate: 40 },     // Venezuela — Bolívar
+  BO: { sym: 'Bs',   rate: 6.9 },    // Bolivia — Boliviano
+  DO: { sym: 'RD$',  rate: 58 },     // República Dominicana — Peso dominicano
+  UY: { sym: '$U',   rate: 40 },     // Uruguay — Peso uruguayo
+  PY: { sym: '₲',    rate: 7400 },   // Paraguay — Guaraní
+  CR: { sym: '₡',    rate: 520 },    // Costa Rica — Colón
+  GT: { sym: 'Q',    rate: 7.8 },    // Guatemala — Quetzal
+  HN: { sym: 'L',    rate: 25 },     // Honduras — Lempira
+  NI: { sym: 'C$',   rate: 37 }      // Nicaragua — Córdoba
 };
 function fmtLocal(usd, fx) {
   const amount = Math.round(usd * fx.rate);
