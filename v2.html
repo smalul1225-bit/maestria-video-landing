@@ -136,7 +136,14 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   opacity: 0.45;
   pointer-events: none;
 }
-.hero-inner { position: relative; z-index: 1; }
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+@media (max-width: 640px) {
+  .hero-inner { text-align: left; }
+}
 .eyebrow {
   display: inline-block;
   padding: 5px 12px;
@@ -156,11 +163,14 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .hero h1 {
   font-size: clamp(26px, 4.5vw, 46px);
-  line-height: 1.12;
+  line-height: 1.15;
   letter-spacing: -0.03em;
   font-weight: 800;
-  margin-bottom: 14px;
-  max-width: 18ch;
+  margin: 0 auto 18px;
+  max-width: 22ch;
+}
+@media (max-width: 640px) {
+  .hero h1 { max-width: none; }
 }
 .hero h1 em {
   color: var(--accent);
@@ -232,6 +242,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .quick-info {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px 24px;
   margin-top: 24px;
   padding: 16px 0;
@@ -240,14 +251,22 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   font-size: 14px;
   color: var(--text-muted);
   font-weight: 600;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (max-width: 640px) {
+  .quick-info { justify-content: flex-start; }
 }
 .quick-info span { display: inline-flex; align-items: center; gap: 6px; }
 .quick-info strong { color: var(--text); font-weight: 700; }
 
 /* ============ TRUST BULLETS (AIVB list style) ============ */
 .trust-list {
-  margin-top: 24px;
+  margin: 24px auto 0;
   list-style: none;
+  max-width: 600px;
+  text-align: left;
 }
 .trust-list li {
   padding: 8px 0;
@@ -258,16 +277,18 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
 /* ============ COUNTRY REACH STRIP ============ */
 .country-strip {
-  margin-top: 24px;
+  margin: 24px auto 0;
   padding: 16px 20px;
   background: rgba(255, 107, 53, 0.06);
   border: 1px solid rgba(255, 107, 53, 0.25);
   border-radius: var(--radius);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 12px 18px;
+  max-width: 720px;
+  text-align: center;
 }
 .country-label {
   font-size: 14px;
@@ -291,7 +312,12 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   line-height: 1.2;
   letter-spacing: -0.02em;
   font-weight: 800;
-  margin-bottom: 24px;
+  margin: 0 auto 28px;
+  text-align: center;
+  max-width: 24ch;
+}
+@media (max-width: 640px) {
+  .section h2 { text-align: left; max-width: none; }
 }
 .section h2 em {
   font-style: normal;
@@ -299,6 +325,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 }
 .checklist, .tired-list {
   list-style: none;
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: left;
 }
 .checklist li, .tired-list li {
   padding: 10px 0;
@@ -323,18 +352,21 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 .gift::before { content: '🎁' !important; }
 .fire::before { content: '🔥' !important; }
 .perfect-note {
-  margin-top: 20px;
+  margin: 20px auto 0;
   padding: 16px 20px;
   background: var(--bg-card);
   border-left: 3px solid var(--accent);
   border-radius: 8px;
   font-size: 15px;
   color: var(--text-muted);
+  max-width: 640px;
 }
 .is-for-you {
-  margin-top: 18px;
+  margin: 22px auto 0;
   font-size: 18px;
   font-weight: 700;
+  text-align: center;
+  max-width: 640px;
 }
 .is-for-you span { color: var(--accent); }
 
@@ -707,7 +739,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <header class="hero">
   <div class="container hero-inner">
     <span class="eyebrow">Bootcamp · Video con IA · Español</span>
-    <h1>Aprende a crear videos e imágenes <em>ultra realistas</em> con IA<br/>y conviértelos en <em class="underline">ingresos</em>.</h1>
+    <h1>Aprende a crear videos e imágenes <em>ultra realistas</em> con IA y conviértelos en <em class="underline">ingresos</em>.</h1>
 
     <!-- Main view + thumbnail strip -->
     <div class="main-view" id="mainView">
