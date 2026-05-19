@@ -194,6 +194,43 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   .hero-sub { font-size: 18px; }
 }
 
+/* ============ SCARCITY BANNER ============ */
+.scarcity-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  margin: 0 auto 18px;
+  background: linear-gradient(90deg, rgba(255,107,53,0.16), rgba(255,107,53,0.06));
+  border: 1px solid rgba(255,107,53,0.45);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+}
+.scarcity-banner strong { color: var(--accent); font-weight: 800; letter-spacing: 0.04em; }
+.scarcity-banner > span:first-of-type { color: rgba(255,255,255,0.35); }
+.pulse-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.6);
+  animation: pulse-dot 1.8s infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse-dot {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7); }
+  70%  { box-shadow: 0 0 0 10px rgba(255, 107, 53, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); }
+}
+@media (max-width: 640px) {
+  .scarcity-banner { font-size: 12px; padding: 8px 14px; }
+  .scarcity-banner > span:nth-of-type(2),
+  .scarcity-banner > span:nth-of-type(4) { display: none; } /* hide bullet separators on mobile */
+}
+
 /* ============ 7-DAY ROADMAP ============ */
 .roadmap-section {
   padding: 56px 0 24px;
@@ -812,6 +849,14 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <!-- ============ HERO ============ -->
 <header class="hero">
   <div class="container hero-inner">
+    <div class="scarcity-banner">
+      <span class="pulse-dot"></span>
+      <strong>PRECIO DE LANZAMIENTO</strong>
+      <span>·</span>
+      <span>$9/mes solo para los primeros <strong>21,200 miembros</strong></span>
+      <span>·</span>
+      <span>Después: $25/mes</span>
+    </div>
     <span class="eyebrow">Bootcamp · Video con IA · Español</span>
     <h1>Crea tu primer video viral con IA en <em>7 días</em> — sin cámara, sin editor, sin <em class="underline">excusas</em>.</h1>
     <p class="hero-sub">Aprende paso a paso a producir contenido que las marcas pagan. Solo prompts, IA y un sistema que ya usan +20,000 creadores.</p>
@@ -854,8 +899,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       <li>⭐ Comunidad Top 1% en español</li>
       <li>🥇 Curso de Video/Imagen con IA Clasificado #1 en Skool</li>
       <li>🏆 Clasificado #22 a Nivel Global entre 250,000 Comunidades</li>
+      <li>🔒 Precio fundador: $9/mes <strong>de por vida</strong> (sube a $25/mes al cerrar)</li>
       <li>🚨 Plan Anual de lanzamiento: <strong>$55/año (ahorra 49%)</strong></li>
-      <li>‼️ Plan Mensual: solo <strong>$9/mes</strong>, cancela cuando quieras</li>
     </ul>
 
     <!-- Country reach strip -->
@@ -974,7 +1019,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <section class="pricing-section" id="pricing">
   <div class="container">
     <h2>⚡ Elige tu plan de acceso</h2>
-    <p class="sub">Dos opciones. Mismo bootcamp completo. Cancela cuando quieras.</p>
+    <p class="sub">Dos opciones. Mismo bootcamp completo. <strong style="color:var(--accent);">Precio fundador: $9/mes de por vida</strong> — solo para los primeros 21,200 miembros.</p>
 
     <!-- Trust ribbon above buy boxes -->
     <div class="trust-ribbon">
@@ -988,9 +1033,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
       <!-- 1. PLAN MENSUAL -->
       <div class="plan secondary">
-        <div class="plan-banner muted">SIN COMPROMISO</div>
+        <div class="plan-banner muted">PRECIO FUNDADOR</div>
         <div class="plan-name">Plan Mensual</div>
-        <p class="plan-tagline">Menos de $0.30/día para mantenerte a la vanguardia.</p>
+        <p class="plan-tagline">Menos de $0.30/día. <strong>Lock-in de por vida</strong> mientras esté disponible.</p>
         <div class="plan-price" data-usd="9"><span class="currency">$</span>9<span class="unit"> /mes</span></div>
         <div class="usd-eq" data-usd-eq="9">≈ $9 USD</div>
         <div class="plan-strike">Sin contratos largos</div>
@@ -1009,9 +1054,9 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 
       <!-- 2. PLAN ANUAL — ¡MEJOR VALOR! -->
       <div class="plan popular">
-        <div class="plan-banner">🔥 ¡Mejor Valor!</div>
+        <div class="plan-banner">🔥 ¡Mejor Valor — Precio fundador!</div>
         <div class="plan-name">Plan Anual</div>
-        <p class="plan-tagline">Ahorra más de un 45% frente al pago mensual.</p>
+        <p class="plan-tagline">Equivalente a <strong>$4.58/mes</strong>. Bloquea el precio de lanzamiento por 1 año completo.</p>
         <div class="plan-price" data-usd="55"><span class="currency">$</span>55<span class="unit"> /año</span></div>
         <div class="usd-eq" data-usd-eq="55">≈ $55 USD</div>
         <div class="plan-strike">$108 si pagas mensual</div>
