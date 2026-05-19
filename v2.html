@@ -4,10 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="format-detection" content="telephone=no" />
-<title>MaestrIA Video — Aprende a crear videos e imágenes IA ultra realistas</title>
+<title>Maestría IA — Aprende a crear videos e imágenes IA ultra realistas</title>
 <meta name="description" content="Bootcamp en español de creación de video con IA. Crea, monetiza y vende contenido AI hiperrealista. Desde $9/mes." />
 
-<meta property="og:title" content="MaestrIA Video — El bootcamp #1 de video con IA en español" />
+<meta property="og:title" content="Maestría IA — El bootcamp #1 de video con IA en español" />
 <meta property="og:description" content="Crea videos e imágenes IA ultra realistas. Más de 20,000 creadores. Desde $9/mes." />
 <meta property="og:type" content="website" />
 <meta property="og:locale" content="es_LA" />
@@ -181,6 +181,80 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
   text-decoration-color: rgba(255, 107, 53, 0.5);
+}
+.hero-sub {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--text-dim);
+  max-width: 560px;
+  margin: 14px auto 0;
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .hero-sub { font-size: 18px; }
+}
+
+/* ============ 7-DAY ROADMAP ============ */
+.roadmap-section {
+  padding: 56px 0 24px;
+  background: linear-gradient(180deg, transparent, rgba(255, 107, 53, 0.04));
+}
+.roadmap-section h2 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.roadmap-section .sub {
+  text-align: center;
+  color: var(--text-dim);
+  margin-bottom: 28px;
+  font-size: 16px;
+}
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+@media (min-width: 720px) {
+  .roadmap-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+}
+.roadmap-day {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 107, 53, 0.18);
+  border-radius: 12px;
+  text-align: left;
+}
+.roadmap-day .day-num {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+.roadmap-day .day-text {
+  flex: 1;
+}
+.roadmap-day .day-title {
+  font-weight: 700;
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+.roadmap-day .day-desc {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.45;
 }
 
 /* ============ MAIN CAROUSEL + THUMBS ============ */
@@ -730,7 +804,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <!-- ============ NAV ============ -->
 <nav class="nav">
   <div class="container nav-inner">
-    <div class="logo"><span class="logo-mark">M</span>MaestrIA<span>.</span>Video</div>
+    <div class="logo"><span class="logo-mark">M</span>Maestría<span>.</span>IA</div>
     <a href="#pricing" class="nav-cta" onclick="trackClick('nav-scroll')"><span class="nav-cta-long">Ver planes — Desde $9/mes</span><span class="nav-cta-short">Ver planes</span></a>
   </div>
 </nav>
@@ -739,7 +813,8 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <header class="hero">
   <div class="container hero-inner">
     <span class="eyebrow">Bootcamp · Video con IA · Español</span>
-    <h1>Aprende a crear videos e imágenes <em>ultra realistas</em> con IA y conviértelos en <em class="underline">ingresos</em>.</h1>
+    <h1>Crea tu primer video viral con IA en <em>7 días</em> — sin cámara, sin editor, sin <em class="underline">excusas</em>.</h1>
+    <p class="hero-sub">Aprende paso a paso a producir contenido que las marcas pagan. Solo prompts, IA y un sistema que ya usan +20,000 creadores.</p>
 
     <!-- Main view + thumbnail strip -->
     <div class="main-view" id="mainView">
@@ -771,7 +846,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       <span>🔒 <strong>Privada</strong></span>
       <span>👥 <strong>+20,000 miembros</strong></span>
       <span>🏷️ <strong>Desde $9/mes</strong></span>
-      <span>✨ Por Vega Tech Ltd</span>
+      <span>✨ Acceso inmediato</span>
     </div>
 
     <!-- Trust bullets list -->
@@ -790,6 +865,72 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
     </div>
   </div>
 </header>
+
+<!-- ============ 7-DAY ROADMAP ============ -->
+<section class="roadmap-section">
+  <div class="container">
+    <h2>Lo que vas a lograr en <em style="color:var(--accent);font-style:normal;">7 días</em></h2>
+    <p class="sub">Un sistema paso a paso. Sin teoría vacía. Resultados desde el día 1.</p>
+    <div class="roadmap-grid">
+      <div class="roadmap-day">
+        <div class="day-num">1</div>
+        <div class="day-text">
+          <div class="day-title">Setup de tu arsenal IA</div>
+          <div class="day-desc">Configuras las herramientas que usan los pros: Veo 3, Runway, Midjourney, ElevenLabs.</div>
+        </div>
+      </div>
+      <div class="roadmap-day">
+        <div class="day-num">2</div>
+        <div class="day-text">
+          <div class="day-title">Tu primer video con IA</div>
+          <div class="day-desc">Publicas tu primer video desde cero. Sin cámara, sin editor.</div>
+        </div>
+      </div>
+      <div class="roadmap-day">
+        <div class="day-num">3</div>
+        <div class="day-text">
+          <div class="day-title">Prompts de nivel experto</div>
+          <div class="day-desc">Aprendes a controlar la IA con el lenguaje que reconocen los modelos top.</div>
+        </div>
+      </div>
+      <div class="roadmap-day">
+        <div class="day-num">4</div>
+        <div class="day-text">
+          <div class="day-title">Consistencia de personajes</div>
+          <div class="day-desc">Creas influencers virtuales que mantienen su rostro en cada escena.</div>
+        </div>
+      </div>
+      <div class="roadmap-day">
+        <div class="day-num">5</div>
+        <div class="day-text">
+          <div class="day-title">Anuncios UGC con IA</div>
+          <div class="day-desc">Produces tu primer anuncio estilo UGC del tipo que las marcas pagan.</div>
+        </div>
+      </div>
+      <div class="roadmap-day">
+        <div class="day-num">6</div>
+        <div class="day-text">
+          <div class="day-title">Tu clon / gemelo IA</div>
+          <div class="day-desc">Construyes tu avatar de IA para escalar contenido sin grabarte.</div>
+        </div>
+      </div>
+      <div class="roadmap-day">
+        <div class="day-num">7</div>
+        <div class="day-text">
+          <div class="day-title">Lanzamiento + monetización</div>
+          <div class="day-desc">Publicas tu primer video viral y abres tu primer flujo de ingresos.</div>
+        </div>
+      </div>
+      <div class="roadmap-day" style="background:rgba(255,107,53,0.10);border-color:var(--accent);">
+        <div class="day-num" style="background:#fff;color:var(--accent);">∞</div>
+        <div class="day-text">
+          <div class="day-title">Comunidad de por vida</div>
+          <div class="day-desc">+20,000 creadores, actualizaciones semanales, sorteos y feedback 1 a 1.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ============ ¿QUÉ HAY DENTRO? ============ -->
 <section class="section">
@@ -825,7 +966,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
       <li>Personajes que cambian de rostro entre escenas</li>
       <li>Pasar horas trabajando sin tener nada que publicar</li>
     </ul>
-    <div class="is-for-you"><span>MaestrIA Video</span> es para ti.</div>
+    <div class="is-for-you"><span>Maestría IA</span> es para ti.</div>
   </div>
 </section>
 
@@ -932,7 +1073,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="container">
-    <div>© 2026 MaestrIA Video</div>
+    <div>© 2026 Maestría IA</div>
     <div class="footer-links" style="margin-top:10px;">
       <a href="mailto:soporte@maestriavideo.com">soporte@maestriavideo.com</a>
       <a href="#pricing">Empezar</a>
@@ -943,7 +1084,7 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
 <!-- ============ STICKY MOBILE CTA ============ -->
 <div class="mobile-cta-bar">
   <div class="price-mini">Desde $9/mes<span>o $55/año · garantía 7 días</span></div>
-  <a href="#pricing" class="cta-mini" onclick="trackClick('sticky-mobile')">Ver planes →</a>
+  <a href="#pricing" class="cta-mini" onclick="trackClick('sticky-mobile')">Empieza ahora →</a>
 </div>
 
 <script>
@@ -954,14 +1095,14 @@ function trackClick(location) {
   window.dataLayer.push({
     event: 'cta_click',
     cta_location: location,
-    item_name: 'Plan Anual MaestrIA',
+    item_name: 'Plan Anual Maestría IA',
     value: 55,
     currency: 'USD',
     timestamp: new Date().toISOString()
   });
   // Meta Pixel — no-op until ID is added; same payload as Hotmart expects
   if (typeof fbq !== 'undefined') {
-    fbq('track', 'InitiateCheckout', { content_name: 'Plan Anual MaestrIA', value: 55, currency: 'USD', source: location });
+    fbq('track', 'InitiateCheckout', { content_name: 'Plan Anual Maestría IA', value: 55, currency: 'USD', source: location });
   }
 }
 

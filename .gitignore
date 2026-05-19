@@ -1,4 +1,20 @@
+# Playwright session + state
+.pw-userdata/
+fb-state.json
+
+# Node
 node_modules/
-.DS_Store
+npm-debug.log
+package-lock.json
+
+# Screenshots
 preview-*.png
-screenshot.js
+*.bak
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/
+
+# Tmp
+/tmp/
