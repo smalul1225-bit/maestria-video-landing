@@ -232,6 +232,19 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 60px var(--accent-glow);
   position: relative;
 }
+/* Mask the YouTube title bar (uploader + video title) — YouTube no longer supports showinfo=0 */
+.main-view::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60px;
+  background: #000;
+  z-index: 2;
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .main-view::before { height: 44px; }
+}
 .main-view img,
 .main-view iframe,
 .main-view video {
