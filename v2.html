@@ -1256,7 +1256,7 @@ function fmtLocal(usd, fx) {
           el.innerHTML = '<span class="currency">MX$</span>' + MX_PRICES[usd] + '<span class="unit">' + unit + '</span>';
         });
         document.querySelectorAll('.usd-eq').forEach(el => {
-          el.textContent = 'IVA incluido';
+          el.textContent = '+ IVA al pagar';
           el.style.color = 'var(--text-dim)';
           el.style.fontSize = '12px';
         });
