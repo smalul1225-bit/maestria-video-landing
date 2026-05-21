@@ -1356,12 +1356,19 @@ const FX = {
           '<span class="unit">' + unit + '</span>';
       });
       document.querySelectorAll('.usd-eq').forEach(el => el.classList.add('is-active'));
-      // Mexico: add "+ IVA" disclaimer next to price (Hotmart adds 16% VAT at checkout)
+      // Mexico: hardcode all-in psychological prices (matches Hotmart IVA-included)
       if (cc === 'MX') {
+        const MX_PRICES = { '9': '179', '55': '985' };
+        document.querySelectorAll('[data-usd]').forEach(el => {
+          const usd = el.dataset.usd;
+          if (!MX_PRICES[usd]) return;
+          const unit = el.querySelector('.unit')?.textContent || '';
+          el.innerHTML = '<span class="currency">MX$</span>' + MX_PRICES[usd] + '<span class="unit">' + unit + '</span>';
+        });
         document.querySelectorAll('.usd-eq').forEach(el => {
           if (el.dataset.ivaAdded) return;
           el.dataset.ivaAdded = '1';
-          el.insertAdjacentHTML('afterend', '<div class="iva-note" style="font-size:11px;color:var(--text-dim);margin-top:2px;opacity:0.75;">+ IVA en México</div>');
+          el.insertAdjacentHTML('afterend', '<div class="iva-note" style="font-size:11px;color:var(--text-dim);margin-top:2px;opacity:0.75;">IVA incluido</div>');
         });
       }
     })
