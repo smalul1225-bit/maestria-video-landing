@@ -1171,7 +1171,7 @@ section h2 {
         <div class="plan-save">Ahorras más de un 45%</div>
         <div class="local-prices" id="localPrices" style="display:none">
           <span class="local-prices-label">≈</span>
-          <span data-cc="MX">MX$945</span>
+          <span data-cc="MX">MX$985</span>
           <span data-cc="AR">AR$54.000</span>
           <span data-cc="CO">CO$230.000</span>
           <span data-cc="CL">CL$50.500</span>
@@ -1369,6 +1369,30 @@ const FX = {
           if (el.dataset.ivaAdded) return;
           el.dataset.ivaAdded = '1';
           el.insertAdjacentHTML('afterend', '<div class="iva-note" style="font-size:11px;color:var(--text-dim);margin-top:2px;opacity:0.75;">IVA incluido</div>');
+        });
+        // Replace all other price mentions across the page (nav CTA, sticky CTA, strike, equivalences, FAQ)
+        // Specific selectors only — don't touch elements that show INCOME claims ($500-$2,000 USD per project)
+        const replacements = [
+          [/\$9\s*\/\s*mes/g, 'MX$179/mes'],
+          [/\$55\s*\/\s*año/g, 'MX$985/año'],
+          [/\$55\s*USD/g, 'MX$985'],
+          [/\$108\b/g, 'MX$2,148'],
+          [/\$4\.58\s*\/\s*mes/g, 'MX$82/mes'],
+          [/\$0\.30\s*\/\s*día/g, 'MX$6/día'],
+        ];
+        const priceSelectors = [
+          '.nav-cta-long', '.nav-cta-short', '.price-mini', '.plan-strike',
+          '.plan-tagline', '.cancel-line', '.faq-answer', '.feature', '.features li',
+          '[class*="pricing"] p', '[class*="pricing"] li', '.cta-final p'
+        ].join(', ');
+        document.querySelectorAll(priceSelectors).forEach(el => {
+          let html = el.innerHTML;
+          let changed = false;
+          replacements.forEach(([rx, rep]) => {
+            const next = html.replace(rx, rep);
+            if (next !== html) { html = next; changed = true; }
+          });
+          if (changed) el.innerHTML = html;
         });
       }
     })

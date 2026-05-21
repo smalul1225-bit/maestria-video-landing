@@ -1260,6 +1260,32 @@ function fmtLocal(usd, fx) {
           el.dataset.ivaAdded = '1';
           el.insertAdjacentHTML('afterend', '<div class="iva-note" style="font-size:11px;color:var(--text-dim);margin-top:2px;opacity:0.75;">IVA incluido</div>');
         });
+        // Replace all other price mentions (nav CTA, sticky CTA, founder-pricing banners, strike, equivalences, FAQ)
+        const replacements = [
+          [/\$9\s*\/\s*mes/g, 'MX$179/mes'],
+          [/\$55\s*\/\s*año/g, 'MX$985/año'],
+          [/\$55\s*USD/g, 'MX$985'],
+          [/\$55(?![\d.])/g, 'MX$985'],
+          [/\$25\s*\/\s*mes/g, 'MX$455/mes'],
+          [/\$108\b/g, 'MX$2,148'],
+          [/\$4\.58\s*\/\s*mes/g, 'MX$82/mes'],
+          [/\$0\.30\s*\/\s*día/g, 'MX$6/día'],
+        ];
+        const priceSelectors = [
+          '.nav-cta-long', '.nav-cta-short', '.price-mini', '.plan-strike',
+          '.plan-tagline', '.cancel-line', '.faq-answer', '.feature', '.features li',
+          '[class*="pricing"] p', '[class*="pricing"] li',
+          '.hero-eyebrow', '.pricing-eyebrow', '.scarcity-banner', '.founder-banner'
+        ].join(', ');
+        document.querySelectorAll(priceSelectors).forEach(el => {
+          let html = el.innerHTML;
+          let changed = false;
+          replacements.forEach(([rx, rep]) => {
+            const next = html.replace(rx, rep);
+            if (next !== html) { html = next; changed = true; }
+          });
+          if (changed) el.innerHTML = html;
+        });
       }
     })
     .catch(() => {});
