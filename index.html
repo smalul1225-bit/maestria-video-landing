@@ -247,7 +247,18 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   pointer-events: none;
 }
 @media (max-width: 640px) {
-  .main-view::before { height: 44px; }
+  .main-view::before { height: 28px; }
+  /* Hide YouTube branding "Watch on YouTube" badge on mobile (less screen real estate to waste) */
+  .main-view iframe {
+    aspect-ratio: 16 / 9;
+  }
+  .hero-carousel-v2 {
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+  .thumb-strip {
+    padding: 0 8px;
+  }
 }
 .main-view img,
 .main-view iframe,
