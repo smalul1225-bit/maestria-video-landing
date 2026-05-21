@@ -1365,34 +1365,35 @@ const FX = {
           const unit = el.querySelector('.unit')?.textContent || '';
           el.innerHTML = '<span class="currency">MX$</span>' + MX_PRICES[usd] + '<span class="unit">' + unit + '</span>';
         });
+        // Replace USD reference text with "IVA incluido" (cleaner MX experience)
         document.querySelectorAll('.usd-eq').forEach(el => {
-          if (el.dataset.ivaAdded) return;
-          el.dataset.ivaAdded = '1';
-          el.insertAdjacentHTML('afterend', '<div class="iva-note" style="font-size:11px;color:var(--text-dim);margin-top:2px;opacity:0.75;">IVA incluido</div>');
+          el.textContent = 'IVA incluido';
+          el.style.color = 'var(--text-dim)';
+          el.style.fontSize = '12px';
         });
-        // Replace all other price mentions across the page (nav CTA, sticky CTA, strike, equivalences, FAQ)
-        // Specific selectors only — don't touch elements that show INCOME claims ($500-$2,000 USD per project)
+        // Walk all text nodes and replace USD price mentions with MXN
+        // Specific patterns won't catch income claims ($500-$2,000 USD per project)
         const replacements = [
           [/\$9\s*\/\s*mes/g, 'MX$179/mes'],
           [/\$55\s*\/\s*año/g, 'MX$985/año'],
           [/\$55\s*USD/g, 'MX$985'],
+          [/\$9\s*USD\b/g, 'MX$179'],
           [/\$108\b/g, 'MX$2,148'],
           [/\$4\.58\s*\/\s*mes/g, 'MX$82/mes'],
           [/\$0\.30\s*\/\s*día/g, 'MX$6/día'],
         ];
-        const priceSelectors = [
-          '.nav-cta-long', '.nav-cta-short', '.price-mini', '.plan-strike',
-          '.plan-tagline', '.cancel-line', '.faq-answer', '.feature', '.features li',
-          '[class*="pricing"] p', '[class*="pricing"] li', '.cta-final p'
-        ].join(', ');
-        document.querySelectorAll(priceSelectors).forEach(el => {
-          let html = el.innerHTML;
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+        const nodes = [];
+        let n;
+        while ((n = walker.nextNode())) nodes.push(n);
+        nodes.forEach(node => {
+          let text = node.nodeValue;
           let changed = false;
           replacements.forEach(([rx, rep]) => {
-            const next = html.replace(rx, rep);
-            if (next !== html) { html = next; changed = true; }
+            const next = text.replace(rx, rep);
+            if (next !== text) { text = next; changed = true; }
           });
-          if (changed) el.innerHTML = html;
+          if (changed) node.nodeValue = text;
         });
       }
     })
