@@ -25,6 +25,9 @@
 <!-- Favicon (SVG → inline, no extra request) -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%23ff6b35'/><text x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='system-ui,sans-serif' font-weight='800' font-size='34' fill='%23fff'>M</text></svg>" />
 
+<!-- Meta domain verification (replace content with code from Meta Business Settings → Brand Safety → Domains) -->
+<!-- <meta name="facebook-domain-verification" content="PASTE_CODE_HERE_AFTER_META_GIVES_IT" /> -->
+
 <!-- Meta Pixel — MaestrIA Video (ID: 1031776962510501) -->
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
@@ -1264,10 +1267,49 @@ section h2 {
     <div class="footer-links">
       <a href="mailto:soporte@maestriavideo.com">soporte@maestriavideo.com</a>
       <a href="#faq">FAQ</a>
+      <a href="/privacidad.html">Privacidad</a>
+      <a href="/terminos.html">Términos</a>
+      <a href="/reembolsos.html">Reembolsos</a>
       <a href="https://pay.hotmart.com/l105847817L?off=qp90ckm8">Empezar</a>
     </div>
   </div>
 </footer>
+
+<!-- ============ COOKIE CONSENT BANNER (LGPD / LFPDPPP) ============ -->
+<div id="cookie-banner" style="display:none;position:fixed;bottom:16px;left:16px;right:16px;max-width:520px;margin:0 auto;background:#141414;border:1px solid #2a2a2a;border-radius:14px;padding:18px 20px;z-index:9999;box-shadow:0 12px 40px rgba(0,0,0,0.5);font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;">
+  <div style="font-size:14px;line-height:1.5;color:#d4d4d4;margin-bottom:14px;">
+    Usamos cookies para medir el desempeño de nuestras campañas publicitarias. Al hacer clic en "Aceptar" das tu consentimiento para el uso de cookies de medición y publicidad. Consulta nuestra <a href="/privacidad.html" style="color:#ff6b35;text-decoration:underline;">Política de Privacidad</a>.
+  </div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;">
+    <button id="cookie-reject" style="background:transparent;color:#a3a3a3;border:1px solid #2a2a2a;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;font-weight:600;">Rechazar</button>
+    <button id="cookie-accept" style="background:#ff6b35;color:#fff;border:0;border-radius:8px;padding:8px 18px;font-size:13px;cursor:pointer;font-weight:700;">Aceptar</button>
+  </div>
+</div>
+<script>
+(function(){
+  var KEY = 'maestria_cookie_consent';
+  var existing = localStorage.getItem(KEY);
+  var banner = document.getElementById('cookie-banner');
+  function setConsent(state) {
+    localStorage.setItem(KEY, state);
+    if (banner) banner.style.display = 'none';
+    if (typeof fbq !== 'undefined') {
+      fbq('consent', state === 'granted' ? 'grant' : 'revoke');
+    }
+  }
+  if (existing) {
+    if (typeof fbq !== 'undefined') {
+      fbq('consent', existing === 'granted' ? 'grant' : 'revoke');
+    }
+  } else {
+    if (banner) banner.style.display = 'block';
+  }
+  var acc = document.getElementById('cookie-accept');
+  var rej = document.getElementById('cookie-reject');
+  if (acc) acc.addEventListener('click', function(){ setConsent('granted'); });
+  if (rej) rej.addEventListener('click', function(){ setConsent('revoked'); });
+})();
+</script>
 
 <!-- ============ STICKY MOBILE CTA BAR ============ -->
 <div class="mobile-cta-bar">
