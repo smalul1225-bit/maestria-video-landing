@@ -247,13 +247,25 @@ button { font: inherit; cursor: pointer; border: none; background: none; color: 
   pointer-events: none;
 }
 @media (max-width: 640px) {
-  .main-view::before { height: 36px; }
+  .main-view::before { height: 44px; }
   .hero-carousel-v2 {
     margin-left: -8px;
     margin-right: -8px;
   }
   .thumb-strip {
     padding: 0 8px;
+  }
+}
+/* Mobile: hide bottom YouTube branding ("Watch on YouTube" badge) with a small bottom mask */
+@media (max-width: 640px) {
+  .main-view::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 0;
+    background: transparent;
+    z-index: 2;
+    pointer-events: none;
   }
 }
 .main-view img,
