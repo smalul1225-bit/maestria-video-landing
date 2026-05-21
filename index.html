@@ -1356,6 +1356,14 @@ const FX = {
           '<span class="unit">' + unit + '</span>';
       });
       document.querySelectorAll('.usd-eq').forEach(el => el.classList.add('is-active'));
+      // Mexico: add "+ IVA" disclaimer next to price (Hotmart adds 16% VAT at checkout)
+      if (cc === 'MX') {
+        document.querySelectorAll('.usd-eq').forEach(el => {
+          if (el.dataset.ivaAdded) return;
+          el.dataset.ivaAdded = '1';
+          el.insertAdjacentHTML('afterend', '<div class="iva-note" style="font-size:11px;color:var(--text-dim);margin-top:2px;opacity:0.75;">+ IVA en México</div>');
+        });
+      }
     })
     .catch(() => {});
 })();
