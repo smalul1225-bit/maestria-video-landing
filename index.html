@@ -1348,17 +1348,25 @@ const FX = {
   NI: { sym: 'C$',   rate: 37 }
 };
 (async function() {
-  // Multi-source geo detection with fallback. ipapi.co rate-limits some IPs;
-  // if it fails, fall through to ipinfo.io then ip-api.com.
+  // Multi-source geo detection. ipapi.co rate-limits → fall through to ipinfo.io.
+  // Each call gets a 2.5s timeout so a slow API doesn't block fallback.
+  async function fetchWithTimeout(url, ms) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), ms);
+    try {
+      const r = await fetch(url, { mode: 'cors', signal: ctrl.signal });
+      clearTimeout(timer);
+      return r;
+    } catch (e) { clearTimeout(timer); throw e; }
+  }
   async function detectCountry() {
     const apis = [
       { url: 'https://ipapi.co/json/', cc: d => d.country_code, region: d => d.region },
       { url: 'https://ipinfo.io/json',  cc: d => d.country,      region: d => d.region },
-      { url: 'https://ip-api.com/json/', cc: d => d.countryCode, region: d => d.regionName },
     ];
     for (const api of apis) {
       try {
-        const r = await fetch(api.url, { mode: 'cors' });
+        const r = await fetchWithTimeout(api.url, 2500);
         if (!r.ok) continue;
         const d = await r.json();
         const cc = api.cc(d);

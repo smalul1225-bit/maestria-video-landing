@@ -1228,16 +1228,24 @@ function fmtLocal(usd, fx) {
   return fx.sym + amount.toLocaleString('es');
 }
 (async function() {
-  // Multi-source geo detection — ipapi rate-limits some IPs, fall back to others
+  // Multi-source geo detection with 2.5s timeout per API
+  async function fetchWithTimeout(url, ms) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), ms);
+    try {
+      const r = await fetch(url, { mode: 'cors', signal: ctrl.signal });
+      clearTimeout(timer);
+      return r;
+    } catch (e) { clearTimeout(timer); throw e; }
+  }
   async function detectCountry() {
     const apis = [
       { url: 'https://ipapi.co/json/', cc: d => d.country_code, region: d => d.region },
       { url: 'https://ipinfo.io/json',  cc: d => d.country,      region: d => d.region },
-      { url: 'https://ip-api.com/json/', cc: d => d.countryCode, region: d => d.regionName },
     ];
     for (const api of apis) {
       try {
-        const r = await fetch(api.url, { mode: 'cors' });
+        const r = await fetchWithTimeout(api.url, 2500);
         if (!r.ok) continue;
         const d = await r.json();
         const cc = api.cc(d);
