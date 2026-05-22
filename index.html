@@ -1347,13 +1347,33 @@ const FX = {
   HN: { sym: 'L',    rate: 25 },
   NI: { sym: 'C$',   rate: 37 }
 };
-(function() {
-  fetch('https://ipapi.co/json/', { mode: 'cors' })
-    .then(r => r.ok ? r.json() : null)
+(async function() {
+  // Multi-source geo detection with fallback. ipapi.co rate-limits some IPs;
+  // if it fails, fall through to ipinfo.io then ip-api.com.
+  async function detectCountry() {
+    const apis = [
+      { url: 'https://ipapi.co/json/', cc: d => d.country_code, region: d => d.region },
+      { url: 'https://ipinfo.io/json',  cc: d => d.country,      region: d => d.region },
+      { url: 'https://ip-api.com/json/', cc: d => d.countryCode, region: d => d.regionName },
+    ];
+    for (const api of apis) {
+      try {
+        const r = await fetch(api.url, { mode: 'cors' });
+        if (!r.ok) continue;
+        const d = await r.json();
+        const cc = api.cc(d);
+        if (cc && /^[A-Z]{2}$/.test(cc)) {
+          return { cc, region: api.region(d) || '', source: api.url };
+        }
+      } catch (e) { /* try next */ }
+    }
+    return null;
+  }
+  Promise.resolve(await detectCountry())
     .then(d => {
-      if (!d || !d.country_code) return;
-      const cc = d.country_code;
-      window.dataLayer.push({ event: 'country_detected', country: cc, region: d.region });
+      if (!d || !d.cc) return;
+      const cc = d.cc;
+      window.dataLayer.push({ event: 'country_detected', country: cc, region: d.region, source: d.source });
       const fx = FX[cc];
       if (!fx) return;
       document.querySelectorAll('[data-usd]').forEach(el => {

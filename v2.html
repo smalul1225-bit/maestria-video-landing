@@ -1227,12 +1227,29 @@ function fmtLocal(usd, fx) {
   const amount = Math.round(usd * fx.rate);
   return fx.sym + amount.toLocaleString('es');
 }
-(function() {
-  fetch('https://ipapi.co/json/', { mode: 'cors' })
-    .then(r => r.ok ? r.json() : null)
+(async function() {
+  // Multi-source geo detection — ipapi rate-limits some IPs, fall back to others
+  async function detectCountry() {
+    const apis = [
+      { url: 'https://ipapi.co/json/', cc: d => d.country_code, region: d => d.region },
+      { url: 'https://ipinfo.io/json',  cc: d => d.country,      region: d => d.region },
+      { url: 'https://ip-api.com/json/', cc: d => d.countryCode, region: d => d.regionName },
+    ];
+    for (const api of apis) {
+      try {
+        const r = await fetch(api.url, { mode: 'cors' });
+        if (!r.ok) continue;
+        const d = await r.json();
+        const cc = api.cc(d);
+        if (cc && /^[A-Z]{2}$/.test(cc)) return { cc, region: api.region(d) || '' };
+      } catch (e) { /* try next */ }
+    }
+    return null;
+  }
+  Promise.resolve(await detectCountry())
     .then(d => {
-      if (!d || !d.country_code) return;
-      const cc = d.country_code;
+      if (!d || !d.cc) return;
+      const cc = d.cc;
       const fx = FX[cc];
       window.dataLayer.push({ event: 'country_detected', country: cc, region: d.region });
       if (!fx) return; // US, CA, etc. → keep USD default
